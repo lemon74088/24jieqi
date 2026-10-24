@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4f0e5">
+<meta name="description" content="二十四節氣中医養生提示与身體感受記錄">
+<title>節氣養生 · 二十四節氣</title>
+<style>
+:root{
+  --paper:#f4f0e5;--paper2:#ebe4d4;--ink:#263d35;--muted:#66736a;
+  --jade:#587b68;--jade2:#dce6da;--rust:#a85f45;--gold:#b69a62;
+  --line:#d8d1c1;--white:rgba(255,255,255,.64);--shadow:0 12px 32px rgba(39,57,46,.08)
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans CJK TC","Microsoft JhengHei",sans-serif;line-height:1.6}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{max-width:900px;margin:0 auto;min-height:100vh;padding:0 16px 100px}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:22px 2px 14px}
+.brand{display:flex;gap:10px;align-items:center}
+.seal{width:38px;height:38px;border:1px solid var(--rust);color:var(--rust);display:grid;place-items:center;font-family:serif;font-size:17px;line-height:1;border-radius:3px}
+.brand-title{font-family:serif;font-size:19px;letter-spacing:2px;font-weight:600}
+.brand-sub{font-size:11px;color:var(--muted);letter-spacing:1px}
+.today{font-size:12px;color:var(--muted);text-align:right}
+.hero{position:relative;overflow:hidden;border-radius:18px;padding:24px 22px 22px;background:linear-gradient(130deg,#dbe4d6 0%,#e9e4d3 55%,#d8dfd4 100%);box-shadow:var(--shadow);min-height:235px}
+.hero:before{content:"";position:absolute;right:-35px;bottom:-80px;width:280px;height:220px;border:1px solid rgba(48,75,62,.2);border-radius:50%;box-shadow:0 0 0 18px rgba(255,255,255,.08),0 0 0 40px rgba(255,255,255,.07)}
+.hero:after{content:"山有清音";position:absolute;right:16px;top:18px;writing-mode:vertical-rl;font-family:serif;font-size:12px;letter-spacing:4px;color:rgba(38,61,53,.45)}
+.eyebrow{font-size:12px;letter-spacing:2px;color:var(--jade);font-weight:700}
+.hero h1{font-family:serif;font-size:42px;letter-spacing:7px;line-height:1.2;margin:12px 0 5px;font-weight:500}
+.hero .subtitle{font-family:serif;font-size:15px;color:#52665a}
+.hero-bottom{display:flex;justify-content:space-between;align-items:end;gap:10px;margin-top:20px;position:relative;z-index:1}
+.date-pill{font-size:12px;border:1px solid rgba(38,61,53,.25);padding:5px 10px;border-radius:30px;background:rgba(255,255,255,.24)}
+.next-term{font-size:12px;color:#4e6256;text-align:right}
+.section-head{display:flex;align-items:end;justify-content:space-between;margin:26px 2px 12px}
+.section-head h2{margin:0;font-family:serif;font-size:21px;letter-spacing:2px;font-weight:600}
+.section-head span{font-size:12px;color:var(--muted)}
+
+.calendar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0 14px}.calendar-grid>div{padding:11px 9px;background:rgba(220,230,218,.58);border-radius:10px;min-width:0}.calendar-grid small{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.calendar-grid strong{font-size:14px;font-weight:600;display:block;overflow-wrap:anywhere}.region-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:12px}.region-row label{font-size:13px;color:var(--muted)}.region-row select{border:1px solid var(--line);border-radius:9px;padding:8px 12px;background:rgba(255,255,255,.75);color:var(--ink)}.classical-block blockquote{margin:0;padding:10px 14px;border-left:3px solid var(--gold);background:#f0eadc;font-family:serif;font-size:17px;line-height:1.9;color:#34483d}.source-line{font-size:11px!important;color:#8a7652!important}
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.quick{background:var(--white);border:1px solid rgba(216,209,193,.8);border-radius:13px;padding:14px 12px;min-height:112px;text-align:left;color:var(--ink);box-shadow:0 5px 16px rgba(39,57,46,.03)}
+.quick .qicon{font-size:20px;margin-bottom:7px}
+.quick strong{display:block;font-size:14px;margin-bottom:3px}
+.quick small{display:block;color:var(--muted);font-size:11px;line-height:1.45}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:17px;margin-top:12px}
+.panel h3{margin:0 0 8px;font-family:serif;font-size:18px}
+.panel p{margin:6px 0;color:#4f5e54;font-size:14px}
+.tag{display:inline-block;padding:3px 8px;border-radius:30px;background:var(--jade2);color:#365a48;font-size:11px;margin:0 5px 5px 0}
+.season-tabs{display:flex;gap:7px;overflow:auto;padding:2px 0 8px}
+.tab{white-space:nowrap;border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:30px;padding:7px 14px;font-size:13px}
+.tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.term-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.term-card{border:1px solid var(--line);background:rgba(255,255,255,.48);border-radius:11px;padding:12px 6px;text-align:center;color:var(--ink);min-height:82px}
+.term-card strong{display:block;font-family:serif;font-size:17px;font-weight:500}
+.term-card small{font-size:10px;color:var(--muted)}
+.term-card.current{background:var(--jade2);border-color:var(--jade);box-shadow:inset 0 0 0 1px var(--jade)}
+.term-card .dot{width:5px;height:5px;border-radius:50%;background:var(--rust);display:inline-block;margin-left:3px;vertical-align:middle}
+.detail-title{display:flex;justify-content:space-between;align-items:start;gap:10px}
+.detail-title h2{font-family:serif;font-size:27px;letter-spacing:3px;margin:0}
+.detail-title p{margin:2px 0 0;color:var(--muted);font-size:12px}
+.save-btn{border:1px solid var(--line);background:transparent;border-radius:30px;padding:7px 11px;color:var(--ink);font-size:12px}
+.content-block{border-top:1px solid var(--line);padding-top:12px;margin-top:13px}
+.content-block h4{margin:0 0 6px;font-size:14px;color:var(--jade)}
+.content-block p,.content-block li{font-size:13px;color:#4f5e54}
+.content-block ul{margin:4px 0;padding-left:19px}
+.foods{display:flex;flex-wrap:wrap;gap:6px}
+.food{font-size:12px;background:#f1e9d9;border:1px solid #e2d7c1;border-radius:7px;padding:5px 9px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px;color:var(--muted)}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:9px;background:rgba(255,255,255,.7);padding:10px;color:var(--ink);outline-color:var(--jade)}
+.field textarea{min-height:82px;resize:vertical}
+.primary{background:var(--ink);color:#fff;border:0;border-radius:10px;padding:11px 16px}
+.secondary{background:transparent;border:1px solid var(--line);border-radius:10px;padding:10px 14px;color:var(--ink)}
+.record-list{display:flex;flex-direction:column;gap:9px;margin-top:14px}
+.record{padding:12px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.45)}
+.record-top{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted)}
+.record p{font-size:13px;margin:6px 0 0;white-space:pre-wrap}
+.delete{border:0;background:transparent;color:var(--rust);font-size:12px;padding:0}
+.notice{font-size:11px;color:var(--muted);margin-top:12px}
+.empty{padding:22px 8px;text-align:center;color:var(--muted);font-size:13px}
+.page{display:none}.page.active{display:block}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:rgba(244,240,229,.94);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px max(12px,env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}
+.nav-inner{width:100%;max-width:600px;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.nav-btn{border:0;background:transparent;color:#7a8379;border-radius:10px;padding:6px 2px;font-size:10px}
+.nav-btn span{display:block;font-size:19px;line-height:1.3;margin-bottom:2px}
+.nav-btn.active{background:var(--jade2);color:var(--ink);font-weight:700}
+.toast{position:fixed;bottom:85px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 15px;border-radius:30px;font-size:12px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20;max-width:90%;text-align:center}
+.toast.show{opacity:1}
+footer{text-align:center;color:#92978d;font-size:10px;margin:28px 0 0}
+
+.calendar-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:16px}.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.calendar-weekdays{font-size:12px;color:var(--muted);text-align:center;margin-bottom:6px}.calendar-day{min-height:64px;border:1px solid transparent;background:rgba(255,255,255,.48);border-radius:9px;padding:5px 2px;text-align:center;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}.calendar-day.outside{opacity:.38}.calendar-day.today{border-color:var(--jade);background:var(--jade2)}.calendar-day.selected{box-shadow:inset 0 0 0 2px var(--rust)}.calendar-day .solar-num{font-size:15px;font-weight:600;line-height:1.2}.calendar-day .lunar-num{font-size:10px;color:var(--muted);white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}.calendar-day .term-label{font-size:9px;color:var(--rust);font-weight:700;white-space:nowrap}.calendar-day .festival-label{font-size:9px;color:var(--jade);white-space:nowrap}.calendar-legend{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:13px}.legend-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px}.today-dot{background:var(--jade)}.term-dot{background:var(--rust)}.classic-quote{font-family:serif;font-size:17px;line-height:1.9;letter-spacing:1px;color:#344b3e;background:rgba(224,231,218,.58);border-left:3px solid var(--gold);padding:12px 14px;margin:8px 0;border-radius:0 9px 9px 0}.classic-source{font-size:11px;color:var(--muted)}
+
+@media(min-width:680px){.app{padding:0 26px 110px}.hero{padding:30px 32px;min-height:260px}.hero h1{font-size:50px}.quick-grid{grid-template-columns:repeat(3,1fr)}.term-grid{grid-template-columns:repeat(6,1fr)}.layout-two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.layout-two .panel{margin-top:12px}}
+@media(max-width:380px){.app{padding-left:12px;padding-right:12px}.hero h1{font-size:36px}.quick-grid{gap:7px}.quick{padding:12px 9px}.term-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="seal">節</div><div><div class="brand-title">節氣養生</div><div class="brand-sub">二十四節氣 · 順時而養</div></div></div>
+    <div class="today" id="todayText"></div>
+  </header>
+
+  <main>
+    <section class="page active" id="page-home">
+      <div class="hero">
+        <div class="eyebrow">SEASONAL WELLNESS · 順時養生</div>
+        <h1 id="heroTerm">霜降</h1>
+        <div class="subtitle" id="heroSubtitle">秋意渐深，护養肺脾</div>
+        <div class="hero-bottom"><div class="date-pill" id="heroDate"></div><div class="next-term" id="nextTerm"></div></div>
+      </div>
+      <div class="panel calendar-panel">
+        <div class="section-head" style="margin-top:0"><h2>今日曆法</h2><span>臺灣在地節令</span></div>
+        <div class="calendar-grid"><div><small>國曆</small><strong id="gregorianDate">—</strong></div><div><small>農曆</small><strong id="lunarDate">載入中…</strong></div><div><small>星期</small><strong id="weekdayDate">—</strong></div></div>
+        <div class="region-row"><label for="regionSelect">所在區域</label><select id="regionSelect" onchange="changeRegion(this.value)"><option value="north">北部</option><option value="central">中部</option><option value="south">南部</option><option value="east">東部</option><option value="islands">離島</option></select></div><p class="notice" id="regionNote"></p>
+      </div>
+      <div class="section-head"><h2>今日養生提示</h2><span id="dailyDate"></span></div>
+      <div class="quick-grid">
+        <button class="quick" onclick="showPage('detail')"><div class="qicon">☯</div><strong>中医理論</strong><small>順應時令，理解身體变化</small></button>
+        <button class="quick" onclick="showPage('detail');setDetailTab('food')"><div class="qicon">🍐</div><strong>節氣食療</strong><small>日常飲食与溫和調養</small></button>
+        <button class="quick" onclick="showPage('detail');setDetailTab('acupoint')"><div class="qicon">◎</div><strong>穴位按摩</strong><small>简单易学的日常保健</small></button>
+      </div>
+      <div class="panel">
+        <h3>今日一则</h3>
+        <p id="dailyTip"></p>
+        <div id="dailyTags"></div>
+      </div>
+      <div class="layout-two">
+        <div class="panel"><h3>順時起居</h3><p id="dailyRoutine"></p></div>
+        <div class="panel"><h3>健康留意</h3><p id="dailyCaution"></p></div>
+      </div>
+      <div class="section-head"><h2>二十四節氣</h2><span>点击查看详情</span></div>
+      <div class="season-tabs" id="seasonTabs"></div>
+      <div class="term-grid" id="termGrid"></div>
+    </section>
+
+    <section class="page" id="page-detail">
+      <div class="section-head"><h2>節氣養生手册</h2><span>傳統理論 · 日常参考</span></div>
+      <div class="panel">
+        <div class="detail-title"><div><h2 id="detailName">霜降</h2><p id="detailMeta"></p></div><button class="save-btn" id="favoriteBtn" onclick="toggleFavorite()">☆ 收藏節氣</button></div>
+        <div class="content-block"><h4>一、節氣与中医理論</h4><p id="detailTheory"></p></div>
+        <div class="content-block"><h4>古文節選 · 節氣物候</h4><div class="classic-quote" id="detailClassic"></div><div class="classic-source" id="detailClassicSource"></div><p id="detailClassicExplain"></p></div>
+        <div class="content-block classical-block"><h4>古籍原文與節氣物候</h4><blockquote id="classicalText"></blockquote><p id="classicalSource" class="source-line"></p><p id="classicalMeaning"></p></div>
+        <div class="content-block"><h4>臺灣各區在地提醒</h4><p id="regionalDetail"></p></div>
+        <div class="content-block"><h4>二、飲食調養</h4><p id="detailFoodText"></p><div class="foods" id="detailFoods"></div></div>
+        <div class="content-block"><h4>三、穴位按摩</h4><p id="detailAcupoint"></p></div>
+        <div class="content-block"><h4>四、季節性健康提示</h4><p id="detailCaution"></p></div>
+        <div class="content-block"><h4>五、日常起居建議</h4><p id="detailRoutine"></p></div>
+        <p class="notice">說明：內容為一般性養生参考，不构成诊断或個體化治療建議。食物及穴位應结合個人體質、疾病与用药情况調整；症状持续或明顯加重時應就医。</p>
+      </div>
+      <div class="section-head"><h2>我的收藏</h2><span>保存在本机浏览器</span></div>
+      <div class="panel" id="favoritesPanel"></div>
+    </section>
+
+    <section class="page" id="page-calendar">
+      <div class="section-head"><h2>農曆日曆</h2><span>公曆 · 農曆 · 節氣</span></div>
+      <div class="panel">
+        <div class="calendar-head"><button class="secondary" onclick="changeMonth(-1)">‹ 上月</button><div style="text-align:center"><h3 id="calendarMonthTitle" style="margin:0;font-family:serif;font-size:22px"></h3><div id="calendarLunarMonth" style="font-size:12px;color:var(--muted)"></div></div><button class="secondary" onclick="changeMonth(1)">下月 ›</button></div>
+        <div class="calendar-grid calendar-weekdays"><div>日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div></div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+        <div class="calendar-legend"><span><i class="legend-dot today-dot"></i>今天</span><span><i class="legend-dot term-dot"></i>節氣</span><span>點擊日期查看詳情</span></div>
+      </div>
+      <div class="panel" id="calendarDayDetail"><h3>日期詳情</h3><p>選擇日期即可查看公曆、農曆、節氣與養生提示。</p></div>
+      <p class="notice">農曆日期由瀏覽器的中文農曆日曆計算；若瀏覽器不支援，會顯示提示。節氣時刻僅內置 2026 年台灣時間，其餘年份按常見日期近似顯示。</p>
+    </section>
+
+    <section class="page" id="page-records">
+      <div class="section-head"><h2>身體感受記錄</h2><span>只保存在当前设备</span></div>
+      <div class="panel">
+        <h3>記下今天的状态</h3>
+        <form id="recordForm">
+          <div class="form-grid">
+            <div class="field"><label for="recordDate">日期</label><input id="recordDate" type="date" required></div>
+            <div class="field"><label for="recordFeeling">整體感受</label><select id="recordFeeling"><option>平稳</option><option>精神較好</option><option>疲倦</option><option>烦躁</option><option>怕冷</option><option>燥熱</option><option>不适</option></select></div>
+            <div class="field"><label for="recordSleep">睡眠</label><select id="recordSleep"><option>正常</option><option>难入睡</option><option>易醒</option><option>睡眠不足</option><option>多梦</option></select></div>
+            <div class="field"><label for="recordDiet">飲食</label><select id="recordDiet"><option>清淡均衡</option><option>偏油腻</option><option>偏辛辣</option><option>生冷較多</option><option>食欲欠佳</option><option>其他</option></select></div>
+            <div class="field full"><label for="recordSymptoms">身體感受（可選）</label><input id="recordSymptoms" placeholder="例如：口干、鼻敏感、肩颈紧、胃口变化"></div>
+            <div class="field full"><label for="recordNotes">补充备注</label><textarea id="recordNotes" placeholder="記錄天氣、活动、飲食或其他觀察"></textarea></div>
+            <div class="field full"><button class="primary" type="submit">保存今天的記錄</button></div>
+          </div>
+        </form>
+      </div>
+      <div class="section-head"><h2>过往記錄</h2><span id="recordCount">0 条</span></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="secondary" onclick="exportRecords()">导出記錄 JSON</button><button class="secondary" onclick="clearRecords()">清空全部記錄</button></div>
+      <div class="record-list" id="recordList"></div>
+      <p class="notice">隐私提醒：記錄存放在当前浏览器的本地储存中。清除浏览器資料、換设备或換浏览器可能导致記錄无法读取。请勿記錄不必要的敏感個人資料，建議定期导出备份。</p>
+    </section>
+
+    <section class="page" id="page-settings">
+      <div class="section-head"><h2>设置与說明</h2><span>版本 1.0</span></div>
+      <div class="panel">
+        <h3>每日養生提示</h3>
+        <p>打开本 App 後，会根據设备当前日期顯示对應節氣和建議。网页关闭後，GitHub Pages 本身不会自动在後臺向手机发送定時通知。</p>
+        <button class="primary" onclick="shareReminder()">复制每日提醒文案</button>
+      </div>
+      <div class="panel">
+        <h3>數據与隐私</h3>
+        <p>收藏与身體記錄储存在浏览器本地，不会主动上傳到服务器。导出功能可将記錄保存為 JSON 文件。</p>
+        <p>如果要在不同设备同步、设置固定時间推送或建立账号系統，需要後续加入云端储存与通知服务。</p>
+      </div>
+      <div class="panel">
+        <h3>節氣日期說明</h3>
+        <p>節氣依據太阳在黃道上的位置确定，每年交節日期与時刻可能略有变化。当前版本內置 2026 年臺灣時间交節數據；其他年份会以常见公曆日期范围作近似顯示，正式長期使用時建議接入权威曆書數據。</p>
+      </div>
+      <div class="panel">
+        <h3>健康內容边界</h3>
+        <p>本 App 提供一般健康教育与傳統中医養生知识，不替代诊断、處方或紧急医療服务。孕期、慢性病、过敏、特殊飲食限制或正在服药者，使用食療与穴位建議前應先咨询专业人员。</p>
+      </div>
+    </section>
+  </main>
+  <footer>以節令為序 · 以日常為養<br>最後更新：2026年10月25日 · 版本 1.1<br>傳統養生內容仅供一般健康教育参考</footer>
+</div>
+
+<nav class="bottom-nav"><div class="nav-inner">
+  <button class="nav-btn active" data-page="home" onclick="showPage('home')"><span>⌂</span>首页</button>
+  <button class="nav-btn" data-page="detail" onclick="showPage('detail')"><span>☯</span>節氣手册</button>
+  <button class="nav-btn" data-page="calendar" onclick="showPage('calendar')"><span>▦</span>農曆日曆</button>
+  <button class="nav-btn" data-page="records" onclick="showPage('records')"><span>▤</span>身體記錄</button>
+  <button class="nav-btn" data-page="settings" onclick="showPage('settings')"><span>⚙</span>设置</button>
+</div></nav>
+<div class="toast" id="toast"></div>
+<script>
+const terms = [
+ {name:"小寒",season:"冬",month:1,day:6,subtitle:"寒氣渐盛，护阳防寒",theory:"小寒時節天氣寒冷，傳統中医養生重视避寒保暖、顾护阳氣。不同地區氣候差异明顯，應以實際溫度和個人感受為准。",foodText:"飲食以溫熱、熟食、适量為原则，避免因追求进补而过量。",foods:["熱粥","山药","莲子","根茎类蔬菜"],acupoint:"可轻柔按揉足三里（膝下外侧）、內关（腕横纹上约三指處），以舒适為度；局部疼痛或皮肤受损時避免按压。",caution:"注意低溫、溫差与室內外保暖；心血管疾病、氣喘等患者留意天氣变化并按医嘱管理。",routine:"规律作息，外出注意頭颈与四肢保暖，運动先熱身，避免突然剧烈活动。"},
+ {name:"大寒",season:"冬",month:1,day:20,subtitle:"岁寒至极，安稳蓄養",theory:"大寒為冬季最後一個節氣。傳統養生强調順應冬藏，减少过度耗散，维持规律生活。",foodText:"選擇溫熱、易消化且多样化的食物，避免盲目大量进补。",foods:["南瓜","燕麦","豆类","溫熱汤品"],acupoint:"可轻按足三里、合谷（虎口肌肉處）；孕期、局部受伤或特殊疾病者應先咨询专业人员。",caution:"留意寒冷、跌倒和室內取暖安全；出現胸痛、呼吸困难等急症應立即求助。",routine:"保持居室溫暖通風，睡眠规律，選擇室內伸展或适度步行。"},
+ {name:"立春",season:"春",month:2,day:4,subtitle:"阳氣初展，舒展身心",theory:"立春標志春季开始。傳統中医常以春應肝、主疏泄說明春季宜舒展情志；这属于傳統理論框架，不等同現代医学诊断。",foodText:"逐步增加蔬菜种类，飲食清爽均衡，不必刻意大量食用辛散食物。",foods:["時令青菜","豆腐","春笋","谷物"],acupoint:"可轻柔按揉太冲（足背第一、二跖骨间附近）与內关，配合缓慢呼吸放松。",caution:"早春溫差大，注意衣着調整；花粉或空氣品質变化可能影响过敏者。",routine:"逐步恢复户外活动，保持睡眠与情绪稳定，避免熬夜後突然高强度運动。"},
+ {name:"雨水",season:"春",month:2,day:19,subtitle:"雨润万物，顾护脾胃",theory:"雨水時節濕度与氣溫变化明顯。傳統養生常提醒顾护脾胃、避免飲食失節；實際仍應按当地天氣与身體反應調整。",foodText:"以规律、熟食、均衡為主，少量多样，不因潮濕天氣而过度忌口。",foods:["山药","小米","胡萝卜","当季蔬菜"],acupoint:"可轻柔按揉足三里；按摩不應引起明顯疼痛、麻木或不适。",caution:"留意潮濕环境、霉菌与过敏原；有持续消化道症状時應寻求医療评估。",routine:"衣物保持干爽，室內适度通風，规律进餐并维持日常活动。"},
+ {name:"惊蛰",season:"春",month:3,day:6,subtitle:"春雷启蛰，动静有度",theory:"惊蛰後氣候逐渐转暖。傳統養生重视順應春生，适当活动并保持情志舒畅。",foodText:"選擇多样化蔬菜、全谷和优質蛋白，减少高油高糖食物的频率。",foods:["菠菜","菇类","鸡蛋","全谷物"],acupoint:"可按揉合谷或內关帮助放松；穴位按摩不能替代疾病治療。",caution:"留意花粉、尘螨与溫差；过敏症状明顯者按既有医療計划處理。",routine:"从轻快步行开始增加活动量，運动前熱身，避免久坐。"},
+ {name:"春分",season:"春",month:3,day:21,subtitle:"昼夜均衡，調和作息",theory:"春分昼夜時長接近。養生可着重维持稳定作息、均衡飲食与适量活动，不必追求所谓特定排毒方法。",foodText:"每餐尽量兼顾蔬菜、蛋白質与主食，依食欲和活动量調整份量。",foods:["時令蔬菜","豆制品","魚类","糙米"],acupoint:"可轻按足三里或太冲，力度轻柔，避免按压静脉曲张、伤口或疼痛處。",caution:"有季節性过敏或睡眠变化者可記錄诱因，必要時咨询医療人员。",routine:"固定起床与就寝時间，白天适度接触自然光，保持活动。"},
+ {name:"清明",season:"春",month:4,day:5,subtitle:"清氣明朗，舒缓身心",theory:"清明時節适合结合天氣安排户外活动。傳統養生强調調畅情志，但應避免把正常情绪波动直接视為脏腑疾病。",foodText:"飲食清淡多样即可，食材注意新鮮、充分清洗与适当烹調。",foods:["当季青菜","豆腐","鸡肉","水果"],acupoint:"可用舒适力度按揉內关，配合缓慢呼吸；若出現胸闷胸痛，不應以按摩替代就医。",caution:"户外留意花粉、蚊蟲与日晒；有慢性病者按自身情况安排活动。",routine:"散步、伸展或园艺活动皆可，注意循序渐进并补充水分。"},
+ {name:"谷雨",season:"春",month:4,day:20,subtitle:"雨生百谷，飲食有節",theory:"谷雨接近春夏转換，氣溫与濕度可能变化。傳統養生常提到濕氣，但不能单凭天氣判断個人有某种疾病。",foodText:"避免过量油腻或酒精，维持均衡飲食与足够飲水。",foods:["薏仁（食材用量）","绿叶菜","菇类","全谷物"],acupoint:"可轻柔按揉足三里；孕期或有特殊健康状况者，穴位使用先咨询专业人员。",caution:"注意食物保存、潮濕环境与过敏反應；有持续水肿或不明原因不适需就医。",routine:"衣物与居室保持干爽，规律運动，睡眠充足。"},
+ {name:"立夏",season:"夏",month:5,day:6,subtitle:"夏氣渐長，養心安神",theory:"立夏进入夏季。傳統中医有夏應心的說法，可将其作為关注情绪、睡眠与活动節律的養生提醒。",foodText:"天氣转熱時适量补水，增加蔬果，避免以冰冷飲料取代正常飲食。",foods:["番茄","黃瓜","绿豆（食材）","当季水果"],acupoint:"可轻按內关帮助放松；若有心悸、胸痛或晕厥，應及時寻求医療帮助。",caution:"注意高溫、脱水与食物保存；服用利尿剂或有心肾疾病者應遵从医嘱补水。",routine:"避开高溫時段運动，保持通風，规律作息。"},
+ {name:"小满",season:"夏",month:5,day:21,subtitle:"万物渐盈，清爽有度",theory:"小满時節濕熱感可能增加。傳統養生强調飲食有節、顾护脾胃，實際建議仍應结合地區氣候。",foodText:"以清淡、多样、卫生為原则，不必為了祛濕而長期限制食物种类。",foods:["苦瓜","冬瓜","豆类","绿叶菜"],acupoint:"可轻柔按揉足三里；不适或疼痛時應停止。",caution:"留意闷熱环境、肠胃不适与食物变質，出現脱水征象應及時處理。",routine:"适量飲水、保持衣物干爽，運动後及時清洁与休息。"},
+ {name:"芒种",season:"夏",month:6,day:6,subtitle:"忙而不乱，調節節律",theory:"芒种時節農事繁忙、天氣渐熱。養生重点可放在劳逸结合、睡眠与水分补充。",foodText:"规律进餐，适量补充蛋白質与蔬果，出汗多時注意电解質补充的适宜性。",foods:["玉米","豆腐","鸡蛋","時令蔬菜"],acupoint:"可按揉內关或足三里，以轻柔舒适為原则。",caution:"高溫工作者注意熱伤害風险；意识混乱、昏厥或體溫异常升高需紧急處理。",routine:"安排休息時段，尽量避免正午暴晒，運动量随氣溫調整。"},
+ {name:"夏至",season:"夏",month:6,day:21,subtitle:"日長至极，清心養息",theory:"夏至是一年中白昼較長的時節。傳統養生强調心神安宁，現代生活中可落實為规律睡眠、压力管理与适度活动。",foodText:"飲食保持清爽均衡，适量补水，不建議用大量冷飲替代正餐。",foods:["瓜类","番茄","豆制品","水果"],acupoint:"可轻按內关并配合慢呼吸；按摩不用于處理急性胸痛或呼吸困难。",caution:"谨防中暑，特别关注長者、幼儿及慢性病患者的高溫風险。",routine:"選擇凉爽時段活动，保持室內通風或适当降溫，避免熬夜。"},
+ {name:"小暑",season:"夏",month:7,day:7,subtitle:"暑氣渐起，避熱養津",theory:"小暑後天氣炎熱。傳統養生提醒防暑、顾护津液；現代生活中需关注高溫暴露、出汗与补水。",foodText:"多選含水量較高的蔬果，正常飲食；大量出汗時依情况补充水分和电解質。",foods:["西瓜（适量）","冬瓜","黃瓜","豆类"],acupoint:"可轻柔按揉內关以放松；不建議用穴位按摩處理中暑。",caution:"出現頭晕、恶心、虚弱應立即移至凉爽處；意识改变或昏厥属于急症。",routine:"避开炎熱時段户外活动，穿透氣衣物，避免把儿童或宠物留在车內。"},
+ {name:"大暑",season:"夏",month:7,day:23,subtitle:"暑熱当令，防暑為先",theory:"大暑通常是一年中炎熱的時段之一。養生重点是防止熱伤害、保证睡眠与合理飲食。",foodText:"食物清洁卫生，清淡但营養充足；避免过量酒精与高糖飲料。",foods:["番茄","瓜类","豆腐","酸奶（可耐受者）"],acupoint:"可在休息時轻按足三里；若身體出現熱衰竭表現，應优先降溫与求助。",caution:"高溫、濕熱环境下需注意中暑；心肾疾病患者的补水方式應遵医嘱。",routine:"保持凉爽，分段活动与休息，避免高溫环境下剧烈運动。"},
+ {name:"立秋",season:"秋",month:8,day:8,subtitle:"秋意初起，润燥有度",theory:"立秋後仍可能出現暑熱。傳統養生常强調秋季润燥、关注肺系与情志；應根據当地氣候而非只看節氣調整。",foodText:"适量選擇滋润、易消化的食材，保持蔬果摄取，不需过度进补。",foods:["梨","银耳","百合（食材）","白萝卜"],acupoint:"可轻柔按揉列缺（腕部桡侧附近）或合谷；皮肤受损或疼痛時避免按压。",caution:"干燥环境可能加重皮肤或呼吸道不适；有氣喘或慢性肺病者按医療計划管理。",routine:"保证睡眠与水分摄取，天氣适宜時进行轻度户外活动。"},
+ {name:"處暑",season:"秋",month:8,day:23,subtitle:"暑氣渐退，润燥安神",theory:"處暑意味着暑熱逐渐退去，但各地仍可能炎熱。傳統養生关注秋燥与作息转換，宜结合實際天氣与個人體感。",foodText:"選擇梨、银耳、百合等常见食材搭配均衡飲食；食療不替代疾病治療，过敏或特殊飲食限制者應避开不适食材。",foods:["梨","银耳","百合","莲子","芝麻"],acupoint:"可轻柔按揉列缺或足三里，配合缓慢呼吸；不要用力按压颈部或有伤處。",caution:"留意日夜溫差、干咳、鼻敏感及皮肤干燥；症状持续、喘促或发熱應就医。",routine:"保持室內适度濕度，避免熬夜，運动後及時补水。"},
+ {name:"白露",season:"秋",month:9,day:8,subtitle:"露氣渐重，护肺防凉",theory:"白露後早晚溫差可能增大。傳統養生常提醒顾护肺卫、避免骤然受凉；穿衣應按氣溫与活动量調整。",foodText:"适量選擇滋润食材，同時保持蛋白質、蔬果与全谷摄取。",foods:["梨","银耳","山药","芝麻"],acupoint:"可轻按列缺或內关，保持舒适力度；若出現呼吸困难應立即求助。",caution:"留意溫差与呼吸道感染風险；咳嗽伴高熱、胸痛或喘促應及時就医。",routine:"采用分层穿衣，早晚外出带薄外套，规律睡眠。"},
+ {name:"秋分",season:"秋",month:9,day:23,subtitle:"阴阳相半，平衡飲食",theory:"秋分昼夜接近均分。傳統養生强調平衡与收敛，可實践為稳定作息、适度運动及情绪照顾。",foodText:"不偏食、不盲目进补，選擇当季蔬果、全谷和适量蛋白質。",foods:["莲藕","梨","菇类","根茎类蔬菜"],acupoint:"可轻柔按揉足三里与內关，作為放松习惯之一。",caution:"注意空氣干燥与溫差，慢性呼吸道疾病患者按既定方案管理。",routine:"建立固定睡眠時间，保持室內通風与适量運动。"},
+ {name:"寒露",season:"秋",month:10,day:8,subtitle:"寒意渐顯，润燥防凉",theory:"寒露時節氣溫逐渐下降。傳統養生关注秋燥与防寒，重点是觀察干燥、溫差对個人的影响。",foodText:"可選擇梨、白木耳、莲藕等日常食材，搭配均衡飲食，避免过量辛辣或飲酒。",foods:["梨","莲藕","银耳","芝麻","山药"],acupoint:"可轻按列缺或足三里，力度以舒服為度；皮肤发炎或有伤口處不按。",caution:"早晚注意保暖，留意咽喉干燥、鼻敏感与呼吸道症状；持续不适需评估。",routine:"根據溫度調整衣物，避免出汗後受凉，保持规律活动。"},
+ {name:"霜降",season:"秋",month:10,day:23,subtitle:"秋意渐深，护養肺脾",theory:"霜降是秋季後段的節氣，部分地區早晚转凉。傳統中医常以秋燥、肺系与脾胃調養作為季節性提醒，但不能仅凭節氣判断個人证型。",foodText:"适量選擇梨、莲藕、山药、银耳等日常食材，配合均衡飲食。食療應考虑过敏、血糖控制与個人消化耐受。",foods:["梨","莲藕","山药","银耳","南瓜"],acupoint:"可轻柔按揉足三里或列缺，力度以舒适為度。穴位按摩不替代诊療；孕期、慢性病或特殊情况應先咨询专业人员。",caution:"留意早晚溫差、皮肤与呼吸道干燥。持续咳嗽、发熱、喘促或明顯不适應及時就医。",routine:"注意分层穿衣，睡眠规律，運动前熱身；室內保持适度通風与濕度。"},
+ {name:"立冬",season:"冬",month:11,day:7,subtitle:"冬令初始，安稳收藏",theory:"立冬標志冬季开始。傳統養生强調冬藏与顾护阳氣，可落實為保暖、休息充足和适量活动。",foodText:"可選擇溫熱熟食与多样化蛋白質、蔬菜，不建議未經评估自行大量进补。",foods:["萝卜","山药","豆类","熱汤"],acupoint:"可轻柔按揉足三里或內关，避免在疼痛、发炎或受伤處按压。",caution:"注意寒冷相关風险与室內通風；使用取暖设备時避免一氧化碳中毒。",routine:"规律作息，外出注意保暖，保持室內通風与安全取暖。"},
+ {name:"小雪",season:"冬",month:11,day:22,subtitle:"寒氣渐重，溫養有度",theory:"小雪時節氣溫继续下降。傳統養生重视保暖与作息稳定，避免过劳与骤冷刺激。",foodText:"選擇营養均衡的溫熱飲食，兼顾蔬菜、蛋白質与全谷。",foods:["白菜","萝卜","豆腐","燕麦"],acupoint:"可轻柔按揉足三里，按摩應无明顯疼痛。",caution:"留意寒冷、呼吸道症状与跌倒風险；慢性病患者按医嘱管理。",routine:"室內适度活动，外出分层穿衣，睡眠充足。"},
+ {name:"大雪",season:"冬",month:12,day:7,subtitle:"寒冬渐盛，守暖養息",theory:"大雪時節部分地區进入严寒。傳統養生强調藏養与避寒，實際需根據地域溫度、體力和健康状况調整。",foodText:"维持规律飲食与充足营養，不以高油高盐食物作為进补方式。",foods:["根茎蔬菜","豆类","魚类","熱粥"],acupoint:"可轻柔按揉內关或足三里；有特殊疾病者先询问专业人员。",caution:"注意低溫、滑倒及取暖安全；出現急性胸痛、呼吸困难需紧急就医。",routine:"做好保暖，避免突然剧烈運动，保持室內空氣流通。"},
+ {name:"冬至",season:"冬",month:12,day:22,subtitle:"阴极阳生，静養身心",theory:"冬至是傳統節令中的重要節点。養生可重视规律睡眠、情绪稳定和适度活动，不必将節氣解釋為必然的身體变化。",foodText:"節日飲食适量，注意蔬菜、蛋白質和主食搭配，慢性病患者留意盐糖摄取。",foods:["汤圆（适量）","蔬菜","豆制品","全谷"],acupoint:"可用舒适力度按揉足三里，作為日常放松的一部分。",caution:"寒冷時留意心脑血管風险与跌倒；有相关病史者遵循医療建議。",routine:"保持室內溫暖，安排轻度活动，避免过度熬夜或暴飲暴食。"}
+];
+const seasonNames=["春","夏","秋","冬"];
+const seasonTerms={"春":["立春","雨水","惊蛰","春分","清明","谷雨"],"夏":["立夏","小满","芒种","夏至","小暑","大暑"],"秋":["立秋","處暑","白露","秋分","寒露","霜降"],"冬":["立冬","小雪","大雪","冬至","小寒","大寒"]};
+const solar2026 = {
+ "小寒":"2026-01-05T16:23:00+08:00","大寒":"2026-01-20T09:45:00+08:00",
+ "立春":"2026-02-04T04:02:00+08:00","雨水":"2026-02-18T23:52:00+08:00","惊蛰":"2026-03-05T21:59:00+08:00","春分":"2026-03-20T22:46:00+08:00",
+ "清明":"2026-04-05T02:40:00+08:00","谷雨":"2026-04-20T09:39:00+08:00","立夏":"2026-05-05T19:49:00+08:00","小满":"2026-05-21T08:37:00+08:00",
+ "芒种":"2026-06-05T23:48:00+08:00","夏至":"2026-06-21T16:24:00+08:00","小暑":"2026-07-07T09:57:00+08:00","大暑":"2026-07-23T03:13:00+08:00",
+ "立秋":"2026-08-07T19:43:00+08:00","處暑":"2026-08-23T10:19:00+08:00","白露":"2026-09-07T22:41:00+08:00","秋分":"2026-09-23T08:05:00+08:00",
+ "寒露":"2026-10-08T14:29:00+08:00","霜降":"2026-10-23T17:38:00+08:00","立冬":"2026-11-07T17:52:00+08:00","小雪":"2026-11-22T15:23:00+08:00",
+ "大雪":"2026-12-07T10:52:00+08:00","冬至":"2026-12-22T04:50:00+08:00"
+};
+const monthDay={};
+terms.forEach(t=>monthDay[t.name]=[t.month,t.day]);
+let selectedSeason="秋", selectedTerm="霜降", detailTab="theory";
+const $=id=>document.getElementById(id);
+function localDateString(d=new Date()){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
+function termDate(t,year){
+ if(year===2026 && solar2026[t.name]) return new Date(solar2026[t.name]);
+ let [m,d]=monthDay[t.name]; return new Date(year,m-1,d,12,0,0);
+}
+function getCurrentTerm(now=new Date()){
+ let year=now.getFullYear(), list=terms.map(t=>({t,date:termDate(t,year)})).sort((a,b)=>a.date-b.date);
+ let passed=list.filter(x=>x.date<=now);
+ if(!passed.length){let prev=terms.map(t=>({t,date:termDate(t,year-1)})).sort((a,b)=>a.date-b.date);return {current:prev[prev.length-1].t,next:list[0].t,nextDate:list[0].date}}
+ let current=passed[passed.length-1], idx=list.indexOf(current), next=list[(idx+1)%list.length];
+ return {current:current.t,next:next.t,nextDate:next.date}
+}
+function fmtDate(d){return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`}
+function toast(msg){const el=$("toast");el.textContent=msg;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2200)}
+function showPage(page){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ $("page-"+page).classList.add("active");
+ document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+ window.scrollTo({top:0,behavior:"smooth"});
+ if(page==="detail") renderDetail();
+ if(page==="records") renderRecords();
+ if(page==="calendar") renderCalendar();
+}
+
+const regionalData={
+ north:{label:"北部",note:"北部常受東北季風影響，迎風面較易降雨；秋冬宜留意濕冷、衣物乾爽與室內通風。",specialty:"地方食材可依季節選擇新北山區茶品、金山地瓜、北海岸海產等；實際供應依產季與產地而異。"},
+ central:{label:"中部",note:"中部平地與山區氣候差異明顯，日夜溫差、海線風勢及山區降雨都可能影響體感。",specialty:"可留意當季稻米、菇類、柑橘、梨與茶等地方農產；不同縣市產季不一，選購時以當地當季為準。"},
+ south:{label:"南部",note:"南部暖熱季節通常較長，夏季須留意高溫、日曬與補水；節氣建議應配合當地實際天氣。",specialty:"可依產季選擇鳳梨、芒果、蓮霧、番茄、蓮藕與漁產等地方食材，注意份量、衛生及個人飲食限制。"},
+ east:{label:"東部",note:"東部地形狹長，山海距離近，迎風降雨、山區與海岸氣候可能不同；出門前宜查看所在地天氣。",specialty:"可留意花東米、釋迦、柚類、洛神、當季魚產等在地食材，依產地與季節選擇。"},
+ islands:{label:"離島",note:"離島受海風、日照及季風影響較明顯，氣候感受與臺灣本島不同；戶外活動應留意風勢、日曬與補水。",specialty:"可依各島產季選擇海產、花生、地瓜、芋頭及地方特色食材，並留意保存與新鮮度。"}
+};
+const classics={
+"立春":["東風解凍，蟄蟲始振，魚上冰。","《禮記・月令》孟春之月相關物候記述","古人以風、蟲、魚的變化描述春氣漸生。可作為觀察季節的文化線索，不等同現代氣象預報。"],
+"雨水":["獺祭魚，候雁北，草木萌動。","《禮記・月令》仲春之月物候記述","物候描述反映古人觀察自然節律的方式；臺灣氣候與古代中原地區不同，應以本地實際物候為準。"],
+"驚蟄":["桃始華，倉庚鳴，鷹化為鳩。","《禮記・月令》仲春之月物候記述（傳本文字或有差異）","以花開、鳥鳴等自然現象標記時序，適合搭配當地植物與鳥類觀察。"],
+"春分":["玄鳥至，雷乃發聲，始電。","《禮記・月令》仲春之月物候記述","古籍以燕至、雷電等現象描述春季變化；臺灣各地實際出現時間可能不同。"],
+"清明":["桐始華，田鼠化為鴽，虹始見。","《禮記・月令》季春之月物候記述","古代物候語言帶有時代背景，宜視為文化與自然觀察資料，不作字面生物學解釋。"],
+"穀雨":["萍始生，鳴鳩拂其羽，戴勝降于桑。","《禮記・月令》季春之月物候記述","以水生植物與鳥類活動象徵春末生機；臺灣食農安排仍須參考當地雨量與作物產期。"],
+"立夏":["螻蟈鳴，蚯蚓出，王瓜生。","《禮記・月令》孟夏之月物候記述","古人用昆蟲、土壤生物與植物生長觀察季節；臺灣環境的物候節奏不盡相同。"],
+"小滿":["苦菜秀，靡草死，麥秋至。","《禮記・月令》孟夏之月物候記述","文字反映古代農作物與草木的季節變化，可延伸思考本地作物產季。"],
+"芒種":["螳螂生，鵙始鳴，反舌無聲。","《禮記・月令》仲夏之月物候記述","古代物候記錄將昆蟲、鳥鳴與季節相連，現代可作為節令文化閱讀。"],
+"夏至":["鹿角解，蜩始鳴，半夏生。","《禮記・月令》仲夏之月物候記述","夏至前後日照時間長，養生可重視防暑、作息與補水；中藥半夏不可自行採食或使用。"],
+"小暑":["溫風至，蟋蟀居壁，鷹乃學習。","《禮記・月令》季夏之月物候記述（版本字句或異）","古籍以暑熱與動物行為描述季節；臺灣高溫期間應優先採取現代防熱措施。"],
+"大暑":["腐草為螢，土潤溽暑，大雨時行。","《禮記・月令》季夏之月物候記述","文字描寫濕熱與降雨季節感受。臺灣夏季應注意熱傷害、食物保存及午後雷雨。"],
+"立秋":["涼風至，白露降，寒蟬鳴。","《禮記・月令》孟秋之月物候記述","古代中原立秋後的物候不一定同步出現在臺灣；本地常仍炎熱，宜依氣溫調整養生。"],
+"處暑":["鷹乃祭鳥，天地始肅，禾乃登。","《禮記・月令》仲秋之月相關物候記述","古人以動物行為與穀物成熟描述季節轉換；臺灣各地作物收成時間不同。"],
+"白露":["鴻雁來，玄鳥歸，群鳥養羞。","《禮記・月令》仲秋之月物候記述","古籍描述候鳥與鳥類行為，可結合臺灣本地候鳥觀察理解節令。"],
+"秋分":["雷始收聲，蟄蟲坯戶，水始涸。","《禮記・月令》仲秋之月物候記述","秋分是太陽黃經到達 180° 的天文節點；實際降雨、氣溫仍由各地天氣系統決定。"],
+"寒露":["鴻雁來賓，雀入大水為蛤，菊有黃華。","《禮記・月令》季秋之月物候記述","以候鳥、菊花等描述秋季景象。臺灣秋季仍可能炎熱，需按實際天氣穿衣。"],
+"霜降":["豺乃祭獸，草木黃落，蟄蟲咸俯。","《禮記・月令》季秋之月物候記述","霜降是節氣名稱，不代表臺灣各地必然出現霜。平地應依實際降溫與乾燥程度調整生活。"],
+"立冬":["水始冰，地始凍，雉入大水為蜃。","《禮記・月令》孟冬之月物候記述","古代物候以較寒冷地區為背景；臺灣各地冬季溫度差異大，不宜照搬寒地經驗。"],
+"小雪":["虹藏不見，天氣上升，地氣下降。","《禮記・月令》仲冬之月物候記述","古人以陰陽氣化觀察季節。現代閱讀時可區分傳統宇宙觀與可觀察的氣象現象。"],
+"大雪":["鶡鴠不鳴，虎始交，荔挺出。","《禮記・月令》仲冬之月物候記述","物候與地域環境有關；臺灣冬季常見東北季風、降雨與氣溫變化，而非普遍降雪。"],
+"冬至":["日短至，陰陽爭，諸生蕩。","《禮記・月令》仲冬之月相關記述（版本文字可能不同）","冬至是重要天文節點。民俗飲食可適量享用，仍以均衡飲食為原則。"],
+"小寒":["雁北鄉，鵲始巢，雉始雊。","《禮記・月令》季冬之月物候記述","這些物候以古代環境為背景。臺灣冬季宜關注濕冷、風勢與室內外溫差。"],
+"大寒":["雞始乳，征鳥厲疾，水澤腹堅。","《禮記・月令》季冬之月物候記述","大寒是冬季最後一個節氣，臺灣平地未必嚴寒，養生應以所在地實際氣溫為準。"]
+};
+function changeRegion(value){try{localStorage.setItem('jieqi-region',JSON.stringify(value))}catch(e){}renderRegion();renderDetail();}
+function getRegion(){try{return JSON.parse(localStorage.getItem('jieqi-region'))||'north'}catch(e){return 'north'}}
+function renderRegion(){const value=getRegion(),d=regionalData[value]||regionalData.north;const sel=document.getElementById('regionSelect');if(sel)sel.value=value;const note=d.note+' '+d.specialty;const n=document.getElementById('regionNote');if(n)n.textContent=note;const rd=document.getElementById('regionalDetail');if(rd)rd.textContent=note;}
+function renderCalendar(){const now=new Date();const weekdays=['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];document.getElementById('gregorianDate').textContent=`${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()}`;document.getElementById('weekdayDate').textContent=weekdays[now.getDay()];try{document.getElementById('lunarDate').textContent=new Intl.DateTimeFormat('zh-TW-u-ca-chinese',{year:'numeric',month:'long',day:'numeric'}).format(now)}catch(e){document.getElementById('lunarDate').textContent='請參考臺灣農民曆'}}
+function renderClassic(t){const c=classics[t.name]||['順四時而適寒暑，和喜怒而安居處。','《黃帝內經・素問》相關養生思想之意譯概述，非逐字引文','依季節調整作息與生活是傳統養生的重要觀念。此處為意譯概述，不是古籍逐字原文。'];document.getElementById('classicalText').textContent=c[0];document.getElementById('classicalSource').textContent='出處：'+c[1];document.getElementById('classicalMeaning').textContent=c[2]}
+
+const classicalTexts={
+"立春":["立春，正月節。立，建始也。","《月令七十二候集解》· 元吳澄","古書並記「東風解凍、蟄蟲始振、魚陟負冰」三候。"],
+"雨水":["天一生水……故立春後繼之雨水。","《月令七十二候集解》· 元吳澄","古文以水氣漸盛解釋節名，並記「獺祭魚、候雁北、草木萌動」。"],
+"驚蟄":["萬物出乎震，震為雷，故曰驚蟄。","《月令七十二候集解》· 元吳澄","古人以春雷與蟄蟲活動描述時令變化，實際物候因地域而異。"],
+"春分":["春分者，陰陽相半也，故晝夜均而寒暑平。","《春秋繁露·陰陽出入上下》","此句以陰陽平衡解說春分節令，屬古代自然觀念。"],
+"清明":["萬物生長此時，皆清潔而明淨。","《歲時百問》","常用來解釋清明節名，呈現春日清朗、萬物生長的意象。"],
+"穀雨":["穀雨，三月中。自雨水後，土膏脈動，今又雨其穀於水也。","《月令七十二候集解》· 元吳澄","古文從農事與降水說明穀雨之名。"],
+"立夏":["立夏，四月節。夏，假也。物至此時皆假大也。","《月令七十二候集解》· 元吳澄","此處「假大」是古代訓詁說法，形容萬物漸盛長大。"],
+"小滿":["小滿者，物致於此小得盈滿。","《月令七十二候集解》· 元吳澄","古文以穀物籽粒漸漸飽滿解釋節名。"],
+"芒種":["謂有芒之種穀可稼種矣。","《月令七十二候集解》· 元吳澄","以有芒作物的播種時節解釋節名，反映傳統農事節律。"],
+"夏至":["夏，假也；至，極也，萬物於此皆假大而至極也。","《月令七十二候集解》· 元吳澄","古文以日長與萬物盛長說明夏至。"],
+"小暑":["暑，熱也。就熱之中，分為大小，月初為小，月中為大。","《月令七十二候集解》· 元吳澄","古人將暑熱分為小暑、大暑，提醒人們留意季節轉熱。"],
+"大暑":["暑，熱也。就熱之中，分為大小，月初為小，月中為大。","《月令七十二候集解》· 元吳澄","大暑常是暑熱較盛的時段，生活安排仍應依實際天氣調整。"],
+"立秋":["秋，揫也，物於此而揫斂也。","《月令七十二候集解》· 元吳澄","「揫斂」是古代訓詁，形容萬物由盛長轉向收斂。"],
+"處暑":["處，止也，暑氣至此而止矣。","《月令七十二候集解》· 元吳澄","處暑意為暑熱漸退，但各地仍可能有高溫天氣。"],
+"白露":["秋屬金，金色白，陰氣漸重，露凝而白也。","《月令七十二候集解》· 元吳澄","這是古人對白露節名的解釋，並非現代氣象成因的完整描述。"],
+"秋分":["分者，平也，此當九十日之半，故謂之分。","《月令七十二候集解》· 元吳澄","秋分是秋季中段的節氣，名稱含有平分之意。"],
+"寒露":["露氣寒冷，將凝結也。","《月令七十二候集解》· 元吳澄","古文以露水轉寒解釋節名，實際降溫程度因地區而異。"],
+"霜降":["氣肅而凝，露結為霜矣。","《月令七十二候集解》· 元吳澄","這是古代對霜降的物候性解說，並不表示各地此日必然降霜。"],
+"立冬":["冬，終也，萬物收藏也。","《月令七十二候集解》· 元吳澄","古文以收藏概括冬季意象，可轉化為保暖、休息與規律生活的提醒。"],
+"小雪":["雨下而為寒氣所薄，故凝而為雪；小者，未盛之辭。","《月令七十二候集解》· 元吳澄","這是傳統節名訓釋，是否降雪仍取決於當地氣候。"],
+"大雪":["大者，盛也；至此而雪盛矣。","《月令七十二候集解》· 元吳澄","古文用「盛」說明節名，並非指每個地區都會降大雪。"],
+"冬至":["冬至，十一月中。終藏之氣至此而極也。","《月令七十二候集解》· 元吳澄","冬至是傳統節令的重要節點，可作季節與作息觀察。"],
+"小寒":["月初寒尚小，故云；月半則大矣。","《月令七十二候集解》· 元吳澄","這是古人對小寒名稱的解釋，寒冷程度仍要看地區與當年天氣。"],
+"大寒":["大寒，十二月中。解見前。","《月令七十二候集解》· 元吳澄","古文以大小寒相承描述冬季寒冷進程，日常應注意保暖與防滑。"]
+};
+let calendarCursor=new Date(new Date().getFullYear(),new Date().getMonth(),1),calendarSelected=localDateString();
+function lunarParts(date){try{const f=new Intl.DateTimeFormat('zh-TW-u-ca-chinese',{year:'numeric',month:'long',day:'numeric'});const o={};f.formatToParts(date).forEach(p=>o[p.type]=p.value);if(!o.month||!o.day)return null;return {year:o.relatedYear||o.year||'',month:o.month,day:o.day,text:o.month+o.day}}catch(e){return null}}
+function lunarFestival(date,lp){const m=date.getMonth()+1,d=date.getDate(),solar={'1-1':'元旦','2-28':'和平紀念日','4-4':'兒童節','5-1':'勞動節','10-10':'雙十節','12-25':'聖誕節'};if(solar[m+'-'+d])return solar[m+'-'+d];if(!lp)return '';const t=lp.month+lp.day;const map={'正月初一':'春節','正月十五':'元宵','五月初五':'端午','七月初七':'七夕','七月十五':'中元','八月十五':'中秋','九月初九':'重陽','臘月初八':'臘八','臘月廿三':'小年','臘月二十三':'小年','臘月三十':'除夕','臘月廿九':'除夕'};return map[t]||''}
+function getTermForDate(date){const y=date.getFullYear();return terms.map(t=>({t,d:termDate(t,y)})).find(x=>x.d.getFullYear()===y&&x.d.getMonth()===date.getMonth()&&x.d.getDate()===date.getDate())?.t||null}
+function changeMonth(delta){calendarCursor=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()+delta,1);renderCalendar()}
+function renderCalendar(){const y=calendarCursor.getFullYear(),m=calendarCursor.getMonth();$('calendarMonthTitle').textContent=`${y}年${m+1}月`;const first=new Date(y,m,1),start=new Date(y,m,1-first.getDay()),lp0=lunarParts(first);$('calendarLunarMonth').textContent=lp0?`農曆 ${lp0.year?lp0.year+'年':''}${lp0.month}`:'此瀏覽器暫不支援農曆顯示';let out='';for(let i=0;i<42;i++){const d=new Date(start.getFullYear(),start.getMonth(),start.getDate()+i),ds=localDateString(d),lp=lunarParts(d),term=getTermForDate(d),fest=lunarFestival(d,lp),lunar=lp?(lp.day==='初一'?lp.month:lp.day):'—',label=term?term.name:(fest||'');out+=`<button class="calendar-day ${d.getMonth()!==m?'outside':''} ${ds===localDateString()?'today':''} ${ds===calendarSelected?'selected':''}" onclick="selectCalendarDate('${ds}')"><span class="solar-num">${d.getDate()}</span><span class="lunar-num">${escapeHtml(lunar)}</span>${label?`<span class="${term?'term-label':'festival-label'}">${escapeHtml(label)}</span>`:''}</button>`}$('calendarGrid').innerHTML=out;renderCalendarDay(calendarSelected)}
+function selectCalendarDate(ds){calendarSelected=ds;const d=new Date(ds+'T12:00:00');if(d.getMonth()!==calendarCursor.getMonth())calendarCursor=new Date(d.getFullYear(),d.getMonth(),1);renderCalendar()}
+function renderCalendarDay(ds){const d=new Date(ds+'T12:00:00'),lp=lunarParts(d),term=getTermForDate(d),fest=lunarFestival(d,lp),t=term||terms.find(x=>x.name===selectedTerm)||getCurrentTerm().current,lunar=lp?`${lp.year?lp.year+'年':''}${lp.month}${lp.day}`:'此瀏覽器未能計算農曆日期';$('calendarDayDetail').innerHTML=`<h3>${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日</h3><p><strong>農曆：</strong>${escapeHtml(lunar)}</p>${fest?`<p><strong>節日：</strong>${escapeHtml(fest)}</p>`:''}<p><strong>節氣：</strong>${term?escapeHtml(term.name+' · '+term.subtitle):'此日非節氣交節日'}</p><p><strong>養生提示：</strong>${escapeHtml(t.foodText+' '+t.routine)}</p><button class="secondary" onclick="selectedTerm='${t.name}';showPage('detail')">查看${t.name}完整養生與古文</button>`}
+
+function renderHeader(){
+ renderCalendar();
+ let now=new Date(), current=getCurrentTerm(now);
+ $("todayText").innerHTML=`${now.getFullYear()}年<br>${now.getMonth()+1}月${now.getDate()}日`;
+ $("heroTerm").textContent=current.current.name;
+ $("heroSubtitle").textContent=current.current.subtitle;
+ $("heroDate").textContent=`${now.getFullYear()} · ${current.current.season}季節令`;
+ let diff=Math.max(0,Math.ceil((current.nextDate-now)/(24*60*60*1000)));
+ $("nextTerm").innerHTML=`下個節氣：${current.next.name}<br>约 ${diff} 天後`;
+ $("dailyDate").textContent=`${now.getMonth()+1}月${now.getDate()}日`;
+ $("dailyTip").textContent=current.current.foodText+" "+current.current.routine;
+ $("dailyRoutine").textContent=current.current.routine;
+ $("dailyCaution").textContent=current.current.caution;
+ $("dailyTags").innerHTML=`<span class="tag">${current.current.season}季調養</span><span class="tag">飲食有節</span><span class="tag">规律作息</span>`;
+ selectedTerm=current.current.name;
+ renderTerms();renderDetail();renderRegion();
+}
+function renderSeasonTabs(){
+ $("seasonTabs").innerHTML=seasonNames.map(s=>`<button class="tab ${s===selectedSeason?"active":""}" onclick="selectSeason('${s}')">${s}季</button>`).join("");
+}
+function renderTerms(){
+ renderSeasonTabs();
+ let names=seasonTerms[selectedSeason];
+ $("termGrid").innerHTML=names.map(name=>{
+   let t=terms.find(x=>x.name===name), current=getCurrentTerm().current.name===name;
+   let md=monthDay[name];return `<button class="term-card ${current?"current":""}" onclick="selectTerm('${name}')"><strong>${name}${current?'<i class="dot"></i>':""}</strong><small>${md[0]}月${md[1]}日前後</small></button>`;
+ }).join("");
+}
+function selectSeason(s){selectedSeason=s;renderTerms()}
+function selectTerm(name){selectedTerm=name;showPage("detail");renderDetail()}
+function setDetailTab(tab){detailTab=tab;renderDetail()}
+function getStore(key, fallback){try{return JSON.parse(localStorage.getItem(key))??fallback}catch(e){return fallback}}
+function setStore(key,val){localStorage.setItem(key,JSON.stringify(val))}
+function renderDetail(){
+ const t=terms.find(x=>x.name===selectedTerm)||getCurrentTerm().current;
+ $("detailName").textContent=t.name;
+ $("detailMeta").textContent=`${t.season}季 · ${t.month}月${t.day}日前後 · 節氣養生参考`;
+ $("detailTheory").textContent=t.theory;
+ const c=classicalTexts[t.name]||["順時而養，因地制宜。","節氣文化提示","以下內容為文化與養生參考，非醫療診斷。"];$("detailClassic").textContent=c[0];$("detailClassicSource").textContent=c[1];$("detailClassicExplain").textContent=c[2];
+ renderClassic(t);renderRegion();
+ $("detailFoodText").textContent=t.foodText;
+ $("detailFoods").innerHTML=t.foods.map(f=>`<span class="food">${f}</span>`).join("");
+ $("detailAcupoint").textContent=t.acupoint;
+ $("detailCaution").textContent=t.caution;
+ $("detailRoutine").textContent=t.routine;
+ let favs=getStore("jieqi-favorites",[]);
+ $("favoriteBtn").textContent=favs.includes(t.name)?"★ 已收藏":"☆ 收藏節氣";
+ $("favoritesPanel").innerHTML=favs.length?favs.map(n=>`<button class="tab" style="margin:3px" onclick="selectTerm('${n}')">${n}</button>`).join(""):'<div class="empty">还没有收藏，打开喜欢的節氣後点击“收藏節氣”。</div>';
+}
+function toggleFavorite(){
+ let favs=getStore("jieqi-favorites",[]),idx=favs.indexOf(selectedTerm);
+ if(idx>=0)favs.splice(idx,1);else favs.push(selectedTerm);
+ setStore("jieqi-favorites",favs);renderDetail();toast(idx>=0?"已取消收藏":"已收藏这個節氣");
+}
+$("recordDate").value=localDateString();
+$("recordForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const rec={id:Date.now(),date:$("recordDate").value,feeling:$("recordFeeling").value,sleep:$("recordSleep").value,diet:$("recordDiet").value,symptoms:$("recordSymptoms").value.trim(),notes:$("recordNotes").value.trim()};
+ let records=getStore("jieqi-records",[]);records.unshift(rec);setStore("jieqi-records",records);
+ $("recordSymptoms").value="";$("recordNotes").value="";renderRecords();toast("已保存到当前设备");
+});
+function renderRecords(){
+ let records=getStore("jieqi-records",[]);
+ $("recordCount").textContent=`${records.length} 条`;
+ $("recordList").innerHTML=records.length?records.map(r=>`<article class="record"><div class="record-top"><strong>${r.date} · ${r.feeling}</strong><button class="delete" onclick="deleteRecord(${r.id})">删除</button></div><div style="font-size:12px;color:#68766c;margin-top:4px">睡眠：${r.sleep}　飲食：${r.diet}</div>${r.symptoms?`<p>身體感受：${escapeHtml(r.symptoms)}</p>`:""}${r.notes?`<p>${escapeHtml(r.notes)}</p>`:""}</article>`).join(""):'<div class="empty">还没有記錄。可以从今天的睡眠、飲食和身體感受开始。</div>';
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function deleteRecord(id){let records=getStore("jieqi-records",[]).filter(r=>r.id!==id);setStore("jieqi-records",records);renderRecords();toast("記錄已删除")}
+function clearRecords(){if(!confirm("确定要删除本机保存的全部身體記錄吗？建議先导出备份。"))return;setStore("jieqi-records",[]);renderRecords();toast("記錄已清空")}
+function exportRecords(){
+ let records=getStore("jieqi-records",[]),blob=new Blob([JSON.stringify(records,null,2)],{type:"application/json;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download=`節氣身體記錄-${localDateString()}.json`;a.click();URL.revokeObjectURL(url);toast("已导出記錄文件");
+}
+function shareReminder(){
+ let t=getCurrentTerm().current, text=`今日節氣：${t.name}\n養生提示：${t.foodText}\n起居建議：${t.routine}\n提醒：內容仅供一般養生参考。`;
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(()=>toast("已复制每日提醒文案")).catch(()=>fallbackCopy(text));
+ else fallbackCopy(text);
+}
+function fallbackCopy(text){let ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast("已复制每日提醒文案")}catch(e){alert(text)}ta.remove()}
+renderHeader();
+renderCalendar();
+</script>
+</body>
+</html>
