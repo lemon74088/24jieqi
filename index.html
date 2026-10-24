@@ -16,13 +16,13 @@
 body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans CJK TC","Microsoft JhengHei",sans-serif;line-height:1.6}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-.app{max-width:900px;margin:0 auto;min-height:100vh;padding:0 16px 100px}
+.app{max-width:900px;margin:0 auto;min-height:100vh;padding:0 16px calc(112px + env(safe-area-inset-bottom))}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:22px 2px 14px}
 .brand{display:flex;gap:10px;align-items:center}
 .seal{width:38px;height:38px;border:1px solid var(--rust);color:var(--rust);display:grid;place-items:center;font-family:serif;font-size:17px;line-height:1;border-radius:3px}
 .brand-title{font-family:serif;font-size:19px;letter-spacing:2px;font-weight:600}
 .brand-sub{font-size:11px;color:var(--muted);letter-spacing:1px}
-.today{font-size:12px;color:var(--muted);text-align:right}
+.today{font-size:12px;color:var(--muted);text-align:right;line-height:1.55;min-width:104px}.today .clock{font-size:15px;font-weight:700;letter-spacing:.4px;color:var(--ink);font-variant-numeric:tabular-nums}
 .hero{position:relative;overflow:hidden;border-radius:18px;padding:24px 22px 22px;background:linear-gradient(130deg,#dbe4d6 0%,#e9e4d3 55%,#d8dfd4 100%);box-shadow:var(--shadow);min-height:235px}
 .hero:before{content:"";position:absolute;right:-35px;bottom:-80px;width:280px;height:220px;border:1px solid rgba(48,75,62,.2);border-radius:50%;box-shadow:0 0 0 18px rgba(255,255,255,.08),0 0 0 40px rgba(255,255,255,.07)}
 .hero:after{content:"山有清音";position:absolute;right:16px;top:18px;writing-mode:vertical-rl;font-family:serif;font-size:12px;letter-spacing:4px;color:rgba(38,61,53,.45)}
@@ -64,6 +64,13 @@ button{cursor:pointer}
 .content-block p,.content-block li{font-size:13px;color:#4f5e54}
 .content-block ul{margin:4px 0;padding-left:19px}
 .foods{display:flex;flex-wrap:wrap;gap:6px}
+.food-plan{margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.45)}
+.food-plan h5{font-size:14px;margin:0 0 8px;color:var(--jade)}
+.meal-idea{padding:9px 0;border-top:1px dashed var(--line)}
+.meal-idea:first-child{border-top:0;padding-top:0}
+.meal-idea strong{display:block;font-size:13px;color:var(--ink);margin-bottom:3px}
+.meal-idea span{display:block;font-size:12px;line-height:1.65;color:var(--muted)}
+.food-note{font-size:12px!important;line-height:1.65;margin:10px 0 0;color:var(--muted)!important}
 .food{font-size:12px;background:#f1e9d9;border:1px solid #e2d7c1;border-radius:7px;padding:5px 9px}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .field{display:flex;flex-direction:column;gap:5px}
@@ -81,12 +88,12 @@ button{cursor:pointer}
 .notice{font-size:11px;color:var(--muted);margin-top:12px}
 .empty{padding:22px 8px;text-align:center;color:var(--muted);font-size:13px}
 .page{display:none}.page.active{display:block}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:rgba(244,240,229,.94);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:8px max(12px,env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center}
-.nav-inner{width:100%;max-width:600px;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
-.nav-btn{border:0;background:transparent;color:#7a8379;border-radius:10px;padding:6px 2px;font-size:10px}
-.nav-btn span{display:block;font-size:19px;line-height:1.3;margin-bottom:2px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:rgba(244,240,229,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:6px max(8px,env(safe-area-inset-left)) calc(6px + env(safe-area-inset-bottom));display:flex;justify-content:center;padding-right:max(8px,env(safe-area-inset-right))}
+.nav-inner{width:100%;max-width:600px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;align-items:stretch}
+.nav-btn{min-width:0;white-space:nowrap;overflow:hidden;border:0;background:transparent;color:#7a8379;border-radius:10px;padding:6px 1px;font-size:clamp(9px,2.7vw,11px);line-height:1.25;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.nav-btn span{display:block;font-size:19px;line-height:1.25;margin-bottom:3px;flex:0 0 auto}
 .nav-btn.active{background:var(--jade2);color:var(--ink);font-weight:700}
-.toast{position:fixed;bottom:85px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 15px;border-radius:30px;font-size:12px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20;max-width:90%;text-align:center}
+.toast{position:fixed;bottom:calc(90px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 15px;border-radius:30px;font-size:12px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20;max-width:90%;text-align:center}
 .toast.show{opacity:1}
 footer{text-align:center;color:#92978d;font-size:10px;margin:28px 0 0}
 
@@ -140,7 +147,7 @@ footer{text-align:center;color:#92978d;font-size:10px;margin:28px 0 0}
         <div class="content-block"><h4>古文節選 · 節氣物候</h4><div class="classic-quote" id="detailClassic"></div><div class="classic-source" id="detailClassicSource"></div><p id="detailClassicExplain"></p></div>
         <div class="content-block classical-block"><h4>古籍原文與節氣物候</h4><blockquote id="classicalText"></blockquote><p id="classicalSource" class="source-line"></p><p id="classicalMeaning"></p></div>
         <div class="content-block"><h4>臺灣各區在地提醒</h4><p id="regionalDetail"></p></div>
-        <div class="content-block"><h4>二、飲食調養</h4><p id="detailFoodText"></p><div class="foods" id="detailFoods"></div></div>
+        <div class="content-block"><h4>二、飲食調養</h4><p id="detailFoodText"></p><div class="foods" id="detailFoods"></div><div class="food-plan"><h5>本節氣飲食搭配靈感</h5><div id="detailMealIdeas"></div><p class="food-note" id="detailFoodNote"></p></div></div>
         <div class="content-block"><h4>三、穴位按摩</h4><p id="detailAcupoint"></p></div>
         <div class="content-block"><h4>四、季節性健康提示</h4><p id="detailCaution"></p></div>
         <div class="content-block"><h4>五、日常起居建議</h4><p id="detailRoutine"></p></div>
@@ -217,7 +224,7 @@ footer{text-align:center;color:#92978d;font-size:10px;margin:28px 0 0}
       </div>
     </section>
   </main>
-  <footer>以節令為序 · 以日常為養<br>最後更新：2026年10月25日 · 版本 1.1<br>傳統養生內容仅供一般健康教育参考</footer>
+  <footer>以節令為序 · 以日常為養<br>最後更新：2026年10月25日 · 版本 1.4<br>傳統養生內容仅供一般健康教育参考</footer>
 </div>
 
 <nav class="bottom-nav"><div class="nav-inner">
@@ -368,21 +375,41 @@ function renderCalendar(){const y=calendarCursor.getFullYear(),m=calendarCursor.
 function selectCalendarDate(ds){calendarSelected=ds;const d=new Date(ds+'T12:00:00');if(d.getMonth()!==calendarCursor.getMonth())calendarCursor=new Date(d.getFullYear(),d.getMonth(),1);renderCalendar()}
 function renderCalendarDay(ds){const d=new Date(ds+'T12:00:00'),lp=lunarParts(d),term=getTermForDate(d),fest=lunarFestival(d,lp),t=term||terms.find(x=>x.name===selectedTerm)||getCurrentTerm().current,lunar=lp?`${lp.year?lp.year+'年':''}${lp.month}${lp.day}`:'此瀏覽器未能計算農曆日期';$('calendarDayDetail').innerHTML=`<h3>${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日</h3><p><strong>農曆：</strong>${escapeHtml(lunar)}</p>${fest?`<p><strong>節日：</strong>${escapeHtml(fest)}</p>`:''}<p><strong>節氣：</strong>${term?escapeHtml(term.name+' · '+term.subtitle):'此日非節氣交節日'}</p><p><strong>養生提示：</strong>${escapeHtml(t.foodText+' '+t.routine)}</p><button class="secondary" onclick="selectedTerm='${t.name}';showPage('detail')">查看${t.name}完整養生與古文</button>`}
 
+function updateLocalClock(){
+ const now=new Date();
+ const dateText=`${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日`;
+ const timeText=now.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+ $("todayText").innerHTML=`${dateText}<br><span class="clock" aria-label="手機本地時間">${timeText}</span>`;
+}
 function renderHeader(){
  renderCalendar();
- let now=new Date(), current=getCurrentTerm(now);
- $("todayText").innerHTML=`${now.getFullYear()}年<br>${now.getMonth()+1}月${now.getDate()}日`;
- $("heroTerm").textContent=current.current.name;
- $("heroSubtitle").textContent=current.current.subtitle;
- $("heroDate").textContent=`${now.getFullYear()} · ${current.current.season}季節令`;
- let diff=Math.max(0,Math.ceil((current.nextDate-now)/(24*60*60*1000)));
- $("nextTerm").innerHTML=`下個節氣：${current.next.name}<br>约 ${diff} 天後`;
+ let now=new Date();
+ updateLocalClock();
+ // 僅在具有逐節氣精確時間資料的 2026 年顯示今日節氣；其他年份不使用近似日期冒充準確結果。
+ const termDataVerified = now.getFullYear()===2026 && terms.every(t=>Boolean(solar2026[t.name]));
+ const current = termDataVerified ? getCurrentTerm(now) : null;
+ if(current){
+   $("heroTerm").textContent=current.current.name;
+   $("heroSubtitle").textContent=current.current.subtitle;
+   $("heroDate").textContent=`${now.getFullYear()} · ${current.current.season}季節令`;
+   let diff=Math.max(0,Math.ceil((current.nextDate-now)/(24*60*60*1000)));
+   $("nextTerm").innerHTML=`下個節氣：${current.next.name}<br>約 ${diff} 天後`;
+   $("dailyTip").textContent=current.current.foodText+" "+current.current.routine;
+   $("dailyRoutine").textContent=current.current.routine;
+   $("dailyCaution").textContent=current.current.caution;
+   $("dailyTags").innerHTML=`<span class="tag">${current.current.season}季調養</span><span class="tag">飲食有節</span><span class="tag">規律作息</span>`;
+   selectedTerm=current.current.name;
+ } else {
+   $("heroTerm").textContent="今日節氣";
+   $("heroSubtitle").textContent="目前沒有經核實的節氣交接時間資料";
+   $("heroDate").textContent=`${now.getFullYear()}年 · 日期與時間依手機`;
+   $("nextTerm").textContent="";
+   $("dailyTip").textContent="今日節氣資料尚未核實，暫不推定節氣名稱；可從下方二十四節氣手冊選擇節氣閱讀。";
+   $("dailyRoutine").textContent="依當地天氣、個人體力與作息安排飲食、休息及適量活動。";
+   $("dailyCaution").textContent="不依未核實的節氣日期作健康判斷；如有不適，請按實際症狀處理。";
+   $("dailyTags").innerHTML=`<span class="tag">節氣資料待核實</span><span class="tag">飲食有節</span><span class="tag">規律作息</span>`;
+ }
  $("dailyDate").textContent=`${now.getMonth()+1}月${now.getDate()}日`;
- $("dailyTip").textContent=current.current.foodText+" "+current.current.routine;
- $("dailyRoutine").textContent=current.current.routine;
- $("dailyCaution").textContent=current.current.caution;
- $("dailyTags").innerHTML=`<span class="tag">${current.current.season}季調養</span><span class="tag">飲食有節</span><span class="tag">规律作息</span>`;
- selectedTerm=current.current.name;
  renderTerms();renderDetail();renderRegion();
 }
 function renderSeasonTabs(){
@@ -401,6 +428,37 @@ function selectTerm(name){selectedTerm=name;showPage("detail");renderDetail()}
 function setDetailTab(tab){detailTab=tab;renderDetail()}
 function getStore(key, fallback){try{return JSON.parse(localStorage.getItem(key))??fallback}catch(e){return fallback}}
 function setStore(key,val){localStorage.setItem(key,JSON.stringify(val))}
+const mealIdeas={
+ 春:[
+  ["早餐｜山藥燕麥粥","燕麥、山藥丁與雞蛋搭配；想吃鹹口味可加青菜。"],
+  ["午餐｜豆腐菇菜飯","糙米或白米搭配豆腐、香菇及兩種蔬菜，少油烹調。"],
+  ["晚餐｜鮮魚蔬菜湯","魚片、豆腐、青菜煮湯，搭配適量主食。"],
+  ["點心｜當季水果","選擇洗淨的新鮮水果，依血糖及個人耐受調整份量。"]
+ ],
+ 夏:[
+  ["早餐｜小米粥配蛋","小米粥、蒸蛋或水煮蛋，避免只喝含糖飲料。"],
+  ["午餐｜冬瓜豆腐湯飯","冬瓜、豆腐與瘦肉或菇類，搭配飯及其他蔬菜。"],
+  ["晚餐｜番茄魚片麵","番茄、魚片與青菜煮麵，保持清爽但仍要吃足。"],
+  ["點心｜瓜果或無糖優格","可選西瓜、黃瓜等；乳品只適用於能耐受者，注意冷藏衛生。"]
+ ],
+ 秋:[
+  ["早餐｜梨丁銀耳燕麥","銀耳煮軟後加入燕麥與少量梨丁；不必額外加大量糖。"],
+  ["午餐｜蓮藕雞肉飯","蓮藕、雞肉搭配米飯與青菜，兼顧蛋白質及纖維。"],
+  ["晚餐｜百合山藥蔬菜湯","百合、山藥與蔬菜煮湯，可搭配豆腐或魚類補充蛋白質。"],
+  ["點心｜芝麻或當季水果","芝麻少量搭配主食或點心；堅果種子過敏者避免。"]
+ ],
+ 冬:[
+  ["早餐｜南瓜小米粥","南瓜、小米煮粥，可搭配雞蛋或無糖豆漿補充蛋白質。"],
+  ["午餐｜蘿蔔燉豆腐","白蘿蔔、豆腐與瘦肉或菇類燉煮，搭配飯和青菜。"],
+  ["晚餐｜山藥雞肉蔬菜湯","山藥、雞肉及多種蔬菜煮湯，避免只喝湯而不吃食材。"],
+  ["點心｜溫熱無糖飲品","可選溫水或無糖茶；不以酒精或高糖飲品取暖。"]
+ ]
+};
+function renderMealIdeas(t){
+ const ideas=mealIdeas[t.season]||mealIdeas.春;
+ $("detailMealIdeas").innerHTML=ideas.map(x=>`<div class="meal-idea"><strong>${x[0]}</strong><span>${x[1]}</span></div>`).join("");
+ $("detailFoodNote").textContent="搭配原則：每餐盡量有蔬菜、適量蛋白質與主食；食材可按當地當季供應替換。這些是一般飲食靈感，並非治療處方。糖尿病、腎臟病、食物過敏、吞嚥困難或需限水者，請依醫療／營養專業建議調整。";
+}
 function renderDetail(){
  const t=terms.find(x=>x.name===selectedTerm)||getCurrentTerm().current;
  $("detailName").textContent=t.name;
@@ -410,6 +468,7 @@ function renderDetail(){
  renderClassic(t);renderRegion();
  $("detailFoodText").textContent=t.foodText;
  $("detailFoods").innerHTML=t.foods.map(f=>`<span class="food">${f}</span>`).join("");
+ renderMealIdeas(t);
  $("detailAcupoint").textContent=t.acupoint;
  $("detailCaution").textContent=t.caution;
  $("detailRoutine").textContent=t.routine;
@@ -468,6 +527,7 @@ function setFontSize(value){
 function resetFontSize(){setFontSize(16);toast('已恢復預設字體大小')}
 let savedFontSize=16;try{savedFontSize=Number(localStorage.getItem('jieqi-font-size'))||16}catch(e){}
 renderHeader();
+setInterval(updateLocalClock,1000);
 renderCalendar();
 setFontSize(savedFontSize);
 </script>
