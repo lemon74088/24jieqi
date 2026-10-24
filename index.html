@@ -111,11 +111,7 @@ footer{text-align:center;color:#92978d;font-size:10px;margin:28px 0 0}
         <div class="subtitle" id="heroSubtitle">秋意渐深，护養肺脾</div>
         <div class="hero-bottom"><div class="date-pill" id="heroDate"></div><div class="next-term" id="nextTerm"></div></div>
       </div>
-      <div class="panel calendar-panel">
-        <div class="section-head" style="margin-top:0"><h2>今日曆法</h2><span>臺灣在地節令</span></div>
-        <div class="calendar-grid"><div><small>國曆</small><strong id="gregorianDate">—</strong></div><div><small>農曆</small><strong id="lunarDate">載入中…</strong></div><div><small>星期</small><strong id="weekdayDate">—</strong></div></div>
-        <div class="region-row"><label for="regionSelect">所在區域</label><select id="regionSelect" onchange="changeRegion(this.value)"><option value="north">北部</option><option value="central">中部</option><option value="south">南部</option><option value="east">東部</option><option value="islands">離島</option></select></div><p class="notice" id="regionNote"></p>
-      </div>
+<!-- 已移除首頁「今日曆法」卡片，避免農曆讀取失敗造成困擾；獨立農曆日曆頁仍保留。 -->
       <div class="section-head"><h2>今日養生提示</h2><span id="dailyDate"></span></div>
       <div class="quick-grid">
         <button class="quick" onclick="showPage('detail')"><div class="qicon">☯</div><strong>中医理論</strong><small>順應時令，理解身體变化</small></button>
@@ -189,7 +185,18 @@ footer{text-align:center;color:#92978d;font-size:10px;margin:28px 0 0}
     </section>
 
     <section class="page" id="page-settings">
-      <div class="section-head"><h2>设置与說明</h2><span>版本 1.0</span></div>
+      <div class="section-head"><h2>设置与說明</h2><span>版本 1.2</span></div>
+      <div class="panel">
+        <h3>字體大小</h3>
+        <p>依照閱讀習慣調整字體，設定會保存在目前這台設備的瀏覽器中。</p>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <label for="fontSizeControl" style="font-size:14px">小</label>
+          <input id="fontSizeControl" type="range" min="14" max="24" step="1" value="16" oninput="setFontSize(this.value)" style="flex:1;min-width:150px;accent-color:var(--jade)">
+          <label for="fontSizeControl" style="font-size:22px">大</label>
+          <strong id="fontSizeValue" style="min-width:48px;text-align:right">16 px</strong>
+        </div>
+        <button class="secondary" onclick="resetFontSize()" style="margin-top:10px">恢復預設字體</button>
+      </div>
       <div class="panel">
         <h3>每日養生提示</h3>
         <p>打开本 App 後，会根據设备当前日期顯示对應節氣和建議。网页关闭後，GitHub Pages 本身不会自动在後臺向手机发送定時通知。</p>
@@ -440,8 +447,29 @@ function shareReminder(){
  else fallbackCopy(text);
 }
 function fallbackCopy(text){let ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast("已复制每日提醒文案")}catch(e){alert(text)}ta.remove()}
+function applyFontScale(px){
+ const scale=Number(px)/16;
+ document.querySelectorAll('body *').forEach(el=>{
+   if(!el.dataset.baseFontSize){
+     const base=parseFloat(getComputedStyle(el).fontSize);
+     if(Number.isFinite(base)) el.dataset.baseFontSize=String(base);
+   }
+   const base=parseFloat(el.dataset.baseFontSize);
+   if(Number.isFinite(base)) el.style.fontSize=(base*scale)+'px';
+ });
+}
+function setFontSize(value){
+ const px=Math.max(14,Math.min(24,Number(value)||16));
+ try{localStorage.setItem('jieqi-font-size',String(px))}catch(e){}
+ const slider=document.getElementById('fontSizeControl');if(slider)slider.value=String(px);
+ const label=document.getElementById('fontSizeValue');if(label)label.textContent=px+' px';
+ applyFontScale(px);
+}
+function resetFontSize(){setFontSize(16);toast('已恢復預設字體大小')}
+let savedFontSize=16;try{savedFontSize=Number(localStorage.getItem('jieqi-font-size'))||16}catch(e){}
 renderHeader();
 renderCalendar();
+setFontSize(savedFontSize);
 </script>
 </body>
 </html>
