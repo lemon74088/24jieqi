@@ -22,7 +22,7 @@ button{cursor:pointer}
 .seal{width:38px;height:38px;border:1px solid var(--rust);color:var(--rust);display:grid;place-items:center;font-family:serif;font-size:17px;line-height:1;border-radius:3px}
 .brand-title{font-family:serif;font-size:19px;letter-spacing:2px;font-weight:600}
 .brand-sub{font-size:11px;color:var(--muted);letter-spacing:1px}
-.today{font-size:12px;color:var(--muted);text-align:right;line-height:1.55;min-width:104px}.today .clock{font-size:15px;font-weight:700;letter-spacing:.4px;color:var(--ink);font-variant-numeric:tabular-nums}
+.today{font-size:12px;color:var(--muted);text-align:right}
 .hero{position:relative;overflow:hidden;border-radius:18px;padding:24px 22px 22px;background:linear-gradient(130deg,#dbe4d6 0%,#e9e4d3 55%,#d8dfd4 100%);box-shadow:var(--shadow);min-height:235px}
 .hero:before{content:"";position:absolute;right:-35px;bottom:-80px;width:280px;height:220px;border:1px solid rgba(48,75,62,.2);border-radius:50%;box-shadow:0 0 0 18px rgba(255,255,255,.08),0 0 0 40px rgba(255,255,255,.07)}
 .hero:after{content:"山有清音";position:absolute;right:16px;top:18px;writing-mode:vertical-rl;font-family:serif;font-size:12px;letter-spacing:4px;color:rgba(38,61,53,.45)}
@@ -64,13 +64,6 @@ button{cursor:pointer}
 .content-block p,.content-block li{font-size:13px;color:#4f5e54}
 .content-block ul{margin:4px 0;padding-left:19px}
 .foods{display:flex;flex-wrap:wrap;gap:6px}
-.food-plan{margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.45)}
-.food-plan h5{font-size:14px;margin:0 0 8px;color:var(--jade)}
-.meal-idea{padding:9px 0;border-top:1px dashed var(--line)}
-.meal-idea:first-child{border-top:0;padding-top:0}
-.meal-idea strong{display:block;font-size:13px;color:var(--ink);margin-bottom:3px}
-.meal-idea span{display:block;font-size:12px;line-height:1.65;color:var(--muted)}
-.food-note{font-size:12px!important;line-height:1.65;margin:10px 0 0;color:var(--muted)!important}
 .food{font-size:12px;background:#f1e9d9;border:1px solid #e2d7c1;border-radius:7px;padding:5px 9px}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .field{display:flex;flex-direction:column;gap:5px}
@@ -143,14 +136,14 @@ footer{text-align:center;color:#92978d;font-size:10px;margin:28px 0 0}
       <div class="section-head"><h2>節氣養生手册</h2><span>傳統理論 · 日常参考</span></div>
       <div class="panel">
         <div class="detail-title"><div><h2 id="detailName">霜降</h2><p id="detailMeta"></p></div><button class="save-btn" id="favoriteBtn" onclick="toggleFavorite()">☆ 收藏節氣</button></div>
-        <div class="content-block"><h4>一、節氣与中医理論</h4><p id="detailTheory"></p></div>
-        <div class="content-block"><h4>古文節選 · 節氣物候</h4><div class="classic-quote" id="detailClassic"></div><div class="classic-source" id="detailClassicSource"></div><p id="detailClassicExplain"></p></div>
-        <div class="content-block classical-block"><h4>古籍原文與節氣物候</h4><blockquote id="classicalText"></blockquote><p id="classicalSource" class="source-line"></p><p id="classicalMeaning"></p></div>
-        <div class="content-block"><h4>臺灣各區在地提醒</h4><p id="regionalDetail"></p></div>
-        <div class="content-block"><h4>二、飲食調養</h4><p id="detailFoodText"></p><div class="foods" id="detailFoods"></div><div class="food-plan"><h5>本節氣飲食搭配靈感</h5><div id="detailMealIdeas"></div><p class="food-note" id="detailFoodNote"></p></div></div>
-        <div class="content-block"><h4>三、穴位按摩</h4><p id="detailAcupoint"></p></div>
-        <div class="content-block"><h4>四、季節性健康提示</h4><p id="detailCaution"></p></div>
-        <div class="content-block"><h4>五、日常起居建議</h4><p id="detailRoutine"></p></div>
+        <div class="content-block"><h4>一、節氣特点</h4><p id="detailCharacteristics"></p><p id="regionalDetail"></p></div>
+        <div class="content-block"><h4>二、中医理论</h4><p id="detailTheory"></p></div>
+        <div class="content-block"><h4>三、常见健康问题与疾病风险</h4><p id="detailHealthIssues"></p></div>
+        <div class="content-block classical-block"><h4>四、中医经典原文</h4><blockquote id="classicalText"></blockquote><p id="classicalSource" class="source-line"></p><p id="classicalMeaning"></p></div>
+        <div class="content-block"><h4>五、饮食与食疗</h4><p id="detailFoodText"></p><div class="foods" id="detailFoods"></div></div>
+        <div class="content-block"><h4>六、穴位保健</h4><p id="detailAcupoint"></p></div>
+        <div class="content-block"><h4>七、起居与预防</h4><p id="detailRoutine"></p><p id="detailCaution"></p></div>
+        <div class="content-block"><h4>八、个人身体记录</h4><p>可记录本节气期间的身体感受、睡眠、饮食与备注，观察个人变化；记录仅供自我观察，不用于自行诊断。</p><button class="secondary" onclick="showPage('records')">前往身体记录</button></div>
         <p class="notice">說明：內容為一般性養生参考，不构成诊断或個體化治療建議。食物及穴位應结合個人體質、疾病与用药情况調整；症状持续或明顯加重時應就医。</p>
       </div>
       <div class="section-head"><h2>我的收藏</h2><span>保存在本机浏览器</span></div>
@@ -224,7 +217,7 @@ footer{text-align:center;color:#92978d;font-size:10px;margin:28px 0 0}
       </div>
     </section>
   </main>
-  <footer>以節令為序 · 以日常為養<br>最後更新：2026年10月25日 · 版本 1.4<br>傳統養生內容仅供一般健康教育参考</footer>
+  <footer>以節令為序 · 以日常為養<br>最後更新：2026年10月25日 · 版本 1.5<br>傳統養生內容仅供一般健康教育参考</footer>
 </div>
 
 <nav class="bottom-nav"><div class="nav-inner">
@@ -262,6 +255,32 @@ const terms = [
  {name:"大雪",season:"冬",month:12,day:7,subtitle:"寒冬渐盛，守暖養息",theory:"大雪時節部分地區进入严寒。傳統養生强調藏養与避寒，實際需根據地域溫度、體力和健康状况調整。",foodText:"维持规律飲食与充足营養，不以高油高盐食物作為进补方式。",foods:["根茎蔬菜","豆类","魚类","熱粥"],acupoint:"可轻柔按揉內关或足三里；有特殊疾病者先询问专业人员。",caution:"注意低溫、滑倒及取暖安全；出現急性胸痛、呼吸困难需紧急就医。",routine:"做好保暖，避免突然剧烈運动，保持室內空氣流通。"},
  {name:"冬至",season:"冬",month:12,day:22,subtitle:"阴极阳生，静養身心",theory:"冬至是傳統節令中的重要節点。養生可重视规律睡眠、情绪稳定和适度活动，不必将節氣解釋為必然的身體变化。",foodText:"節日飲食适量，注意蔬菜、蛋白質和主食搭配，慢性病患者留意盐糖摄取。",foods:["汤圆（适量）","蔬菜","豆制品","全谷"],acupoint:"可用舒适力度按揉足三里，作為日常放松的一部分。",caution:"寒冷時留意心脑血管風险与跌倒；有相关病史者遵循医療建議。",routine:"保持室內溫暖，安排轻度活动，避免过度熬夜或暴飲暴食。"}
 ];
+const seasonalDetails={
+"小寒":["冬季寒冷感逐渐增强，但台湾平地多以湿冷、风势与早晚温差为主要感受；山区气温可能更低。","留意寒冷天气下血压波动、心脑血管事件风险，以及关节僵硬、呼吸道不适和跌倒风险。"],
+"大寒":["冬季末段，台湾不同地区冷暖差异大，不能仅凭节气判断是否严寒。","留意低温、湿冷造成的不适，呼吸道感染、心血管负担及浴室或户外滑倒风险；长者与慢性病患者尤其注意。"],
+"立春":["春季开始，台湾天气仍可能忽冷忽暖，花粉、尘螨及空气品质也会影响不同族群。","部分人可能出现过敏性鼻炎、眼痒、咳嗽、睡眠或情绪节律变化；持续或严重症状应接受评估。"],
+"雨水":["春季降雨与湿度变化增加，北部、东部及迎风地区的体感可能较湿凉，仍以所在地天气为准。","留意过敏、霉菌相关呼吸道不适，以及饮食保存不当引起的肠胃不适；持续腹泻或脱水需就医。"],
+"惊蛰":["气温渐暖、天气变化较快，户外花粉与尘螨暴露可能增加。","容易过敏者留意鼻塞、喷嚏、眼痒与气喘症状；出现喘促、胸闷加重或呼吸困难应及时就医。"],
+"春分":["昼夜时长接近，春季温差与降雨仍因地区而异，生活作息宜保持稳定。","留意季节性过敏、睡眠不稳及温差引起的呼吸道不适；不要将一般情绪波动直接视为脏腑疾病。"],
+"清明":["春季户外活动增多，台湾部分地区可能潮湿多雨，也需留意日晒与蚊虫。","留意花粉过敏、蚊虫叮咬、日晒不适及户外活动造成的扭伤；慢性病患者按自身状况安排活动。"],
+"谷雨":["春末湿度与降雨可能增加，天气转热的地区也需留意食物保存与居家通风。","留意过敏、霉菌暴露、肠胃不适及湿热环境下的皮肤问题；不明原因水肿或持续不适应就医。"],
+"立夏":["天气逐渐炎热，台湾南部通常更早感到高温，北部与山区仍可能有明显变化。","留意脱水、热衰竭、食物中毒与睡眠受热影响；心肾疾病患者补水方式应遵循医嘱。"],
+"小满":["湿热感可能增强，局部降雨与闷热天气交替，实际感受因地区而异。","留意热疹、香港脚等潮湿环境相关皮肤问题、肠胃不适及脱水；皮肤感染或症状持续应就医。"],
+"芒种":["进入较热、较潮湿的时段，户外工作与活动者的热暴露风险增加。","留意热衰竭、中暑、脱水与食物保存不当引起的肠胃炎；大量出汗或长时间户外活动需安排休息。"],
+"夏至":["白昼较长，台湾天气可能炎热潮湿，午后雷雨也会影响户外安排。","留意中暑、睡眠不足、脱水与高温加重慢性病的风险；意识混乱、昏厥或体温异常升高属于急症。"],
+"小暑":["暑热逐渐明显，湿度高时汗液蒸发散热效率下降。","留意头晕、恶心、虚弱、肌肉痉挛等热相关症状；若意识改变或昏厥，应立即降温并寻求紧急医疗帮助。"],
+"大暑":["通常处于盛夏高温期之一，台湾各地都需关注高温预报与室内降温。","中暑、热衰竭、脱水与食源性疾病风险值得关注；长者、幼儿、户外工作者及慢性病患者需特别防护。"],
+"立秋":["节气进入秋季，但台湾常仍有暑热，台风与降雨也可能影响天气。","留意高温相关不适、过敏、皮肤问题与呼吸道症状；不要因为节气名称就过早减少防暑措施。"],
+"处暑":["暑热逐渐退去的传统节令含义不代表台湾立即转凉，白天仍可能高温。","留意日夜温差、过敏、皮肤干燥及持续高温风险；发热、喘促或症状持续应就医。"],
+"白露":["部分地区早晚较凉、日夜温差增加，但台湾南部仍可能炎热潮湿。","留意过敏性鼻炎、咳嗽、咽部不适与皮肤干燥；咳嗽伴高热、胸痛或呼吸困难需及时评估。"],
+"秋分":["昼夜时长接近，天气仍受季风、台风与地区地形影响，不代表全台同时入秋。","留意温差引起的呼吸道不适、季节性过敏与睡眠变化；有慢性呼吸道疾病者遵循既定照护计划。"],
+"寒露":["传统上象征寒意渐显，台湾平地仍可能温暖，早晚温差与湿度需按地区观察。","留意鼻咽干燥、过敏、咳嗽与关节不适；持续咳嗽、发热或喘促不应只靠食疗处理。"],
+"霜降":["秋季后段的节气名称不代表台湾平地会结霜；北部、山区与南部的温度和湿度差异明显。","留意干咳、咽干、皮肤干燥、过敏与降温时的关节不适；这些症状并非节气必然导致，持续或加重应就医。"],
+"立冬":["进入传统冬季，台湾仍常有暖热天气，东北季风影响地区可能较湿冷。","留意温差、呼吸道感染、血压变化与跌倒风险；慢性心肺疾病患者按医嘱管理。"],
+"小雪":["台湾多数平地并不因小雪节气而降雪，较常见的是东北季风、降雨与湿冷感。","留意湿冷导致的不适、呼吸道症状与居家跌倒风险；室内使用燃气或炭火取暖必须防范一氧化碳中毒。"],
+"大雪":["节气名称来自传统气候经验，台湾平地通常不普遍降雪，山区天气则需另行关注。","留意低温、湿冷、呼吸道感染与取暖安全；胸痛、呼吸困难或意识异常应紧急就医。"],
+"冬至":["冬至是重要天文节气，台湾各地冷暖差异仍大，节日饮食也需注意份量。","留意寒冷天气下的心血管风险、呼吸道症状与节日饮食过量；慢性病患者注意盐、糖与饮食份量。"]
+};
 const seasonNames=["春","夏","秋","冬"];
 const seasonTerms={"春":["立春","雨水","惊蛰","春分","清明","谷雨"],"夏":["立夏","小满","芒种","夏至","小暑","大暑"],"秋":["立秋","處暑","白露","秋分","寒露","霜降"],"冬":["立冬","小雪","大雪","冬至","小寒","大寒"]};
 const solar2026 = {
@@ -336,10 +355,8 @@ const classics={
 };
 function changeRegion(value){try{localStorage.setItem('jieqi-region',JSON.stringify(value))}catch(e){}renderRegion();renderDetail();}
 function getRegion(){try{return JSON.parse(localStorage.getItem('jieqi-region'))||'north'}catch(e){return 'north'}}
-function renderRegion(){const value=getRegion(),d=regionalData[value]||regionalData.north;const sel=document.getElementById('regionSelect');if(sel)sel.value=value;const note=d.note+' '+d.specialty;const n=document.getElementById('regionNote');if(n)n.textContent=note;const rd=document.getElementById('regionalDetail');if(rd)rd.textContent=note;}
+function renderRegion(){const value=getRegion(),d=regionalData[value]||regionalData.north;const sel=document.getElementById('regionSelect');if(sel)sel.value=value;const note='台湾地区提醒：'+d.note+' '+d.specialty;const n=document.getElementById('regionNote');if(n)n.textContent=note;const rd=document.getElementById('regionalDetail');if(rd)rd.textContent=note;}
 function renderCalendar(){const now=new Date();const weekdays=['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];document.getElementById('gregorianDate').textContent=`${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()}`;document.getElementById('weekdayDate').textContent=weekdays[now.getDay()];try{document.getElementById('lunarDate').textContent=new Intl.DateTimeFormat('zh-TW-u-ca-chinese',{year:'numeric',month:'long',day:'numeric'}).format(now)}catch(e){document.getElementById('lunarDate').textContent='請參考臺灣農民曆'}}
-function renderClassic(t){const c=classics[t.name]||['順四時而適寒暑，和喜怒而安居處。','《黃帝內經・素問》相關養生思想之意譯概述，非逐字引文','依季節調整作息與生活是傳統養生的重要觀念。此處為意譯概述，不是古籍逐字原文。'];document.getElementById('classicalText').textContent=c[0];document.getElementById('classicalSource').textContent='出處：'+c[1];document.getElementById('classicalMeaning').textContent=c[2]}
-
 const classicalTexts={
 "立春":["立春，正月節。立，建始也。","《月令七十二候集解》· 元吳澄","古書並記「東風解凍、蟄蟲始振、魚陟負冰」三候。"],
 "雨水":["天一生水……故立春後繼之雨水。","《月令七十二候集解》· 元吳澄","古文以水氣漸盛解釋節名，並記「獺祭魚、候雁北、草木萌動」。"],
@@ -366,6 +383,9 @@ const classicalTexts={
 "小寒":["月初寒尚小，故云；月半則大矣。","《月令七十二候集解》· 元吳澄","這是古人對小寒名稱的解釋，寒冷程度仍要看地區與當年天氣。"],
 "大寒":["大寒，十二月中。解見前。","《月令七十二候集解》· 元吳澄","古文以大小寒相承描述冬季寒冷進程，日常應注意保暖與防滑。"]
 };
+// 將節氣名稱的簡繁寫法對齊，確保每個節氣都顯示有出處的古籍條目。
+const classicNameAliases={"惊蛰":"驚蟄","谷雨":"穀雨","小满":"小滿","芒种":"芒種","处暑":"處暑"};
+Object.keys(classicNameAliases).forEach(name=>{if(classicalTexts[classicNameAliases[name]])classicalTexts[name]=classicalTexts[classicNameAliases[name]];});
 let calendarCursor=new Date(new Date().getFullYear(),new Date().getMonth(),1),calendarSelected=localDateString();
 function lunarParts(date){try{const f=new Intl.DateTimeFormat('zh-TW-u-ca-chinese',{year:'numeric',month:'long',day:'numeric'});const o={};f.formatToParts(date).forEach(p=>o[p.type]=p.value);if(!o.month||!o.day)return null;return {year:o.relatedYear||o.year||'',month:o.month,day:o.day,text:o.month+o.day}}catch(e){return null}}
 function lunarFestival(date,lp){const m=date.getMonth()+1,d=date.getDate(),solar={'1-1':'元旦','2-28':'和平紀念日','4-4':'兒童節','5-1':'勞動節','10-10':'雙十節','12-25':'聖誕節'};if(solar[m+'-'+d])return solar[m+'-'+d];if(!lp)return '';const t=lp.month+lp.day;const map={'正月初一':'春節','正月十五':'元宵','五月初五':'端午','七月初七':'七夕','七月十五':'中元','八月十五':'中秋','九月初九':'重陽','臘月初八':'臘八','臘月廿三':'小年','臘月二十三':'小年','臘月三十':'除夕','臘月廿九':'除夕'};return map[t]||''}
@@ -375,41 +395,21 @@ function renderCalendar(){const y=calendarCursor.getFullYear(),m=calendarCursor.
 function selectCalendarDate(ds){calendarSelected=ds;const d=new Date(ds+'T12:00:00');if(d.getMonth()!==calendarCursor.getMonth())calendarCursor=new Date(d.getFullYear(),d.getMonth(),1);renderCalendar()}
 function renderCalendarDay(ds){const d=new Date(ds+'T12:00:00'),lp=lunarParts(d),term=getTermForDate(d),fest=lunarFestival(d,lp),t=term||terms.find(x=>x.name===selectedTerm)||getCurrentTerm().current,lunar=lp?`${lp.year?lp.year+'年':''}${lp.month}${lp.day}`:'此瀏覽器未能計算農曆日期';$('calendarDayDetail').innerHTML=`<h3>${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日</h3><p><strong>農曆：</strong>${escapeHtml(lunar)}</p>${fest?`<p><strong>節日：</strong>${escapeHtml(fest)}</p>`:''}<p><strong>節氣：</strong>${term?escapeHtml(term.name+' · '+term.subtitle):'此日非節氣交節日'}</p><p><strong>養生提示：</strong>${escapeHtml(t.foodText+' '+t.routine)}</p><button class="secondary" onclick="selectedTerm='${t.name}';showPage('detail')">查看${t.name}完整養生與古文</button>`}
 
-function updateLocalClock(){
- const now=new Date();
- const dateText=`${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日`;
- const timeText=now.toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
- $("todayText").innerHTML=`${dateText}<br><span class="clock" aria-label="手機本地時間">${timeText}</span>`;
-}
 function renderHeader(){
  renderCalendar();
- let now=new Date();
- updateLocalClock();
- // 僅在具有逐節氣精確時間資料的 2026 年顯示今日節氣；其他年份不使用近似日期冒充準確結果。
- const termDataVerified = now.getFullYear()===2026 && terms.every(t=>Boolean(solar2026[t.name]));
- const current = termDataVerified ? getCurrentTerm(now) : null;
- if(current){
-   $("heroTerm").textContent=current.current.name;
-   $("heroSubtitle").textContent=current.current.subtitle;
-   $("heroDate").textContent=`${now.getFullYear()} · ${current.current.season}季節令`;
-   let diff=Math.max(0,Math.ceil((current.nextDate-now)/(24*60*60*1000)));
-   $("nextTerm").innerHTML=`下個節氣：${current.next.name}<br>約 ${diff} 天後`;
-   $("dailyTip").textContent=current.current.foodText+" "+current.current.routine;
-   $("dailyRoutine").textContent=current.current.routine;
-   $("dailyCaution").textContent=current.current.caution;
-   $("dailyTags").innerHTML=`<span class="tag">${current.current.season}季調養</span><span class="tag">飲食有節</span><span class="tag">規律作息</span>`;
-   selectedTerm=current.current.name;
- } else {
-   $("heroTerm").textContent="今日節氣";
-   $("heroSubtitle").textContent="目前沒有經核實的節氣交接時間資料";
-   $("heroDate").textContent=`${now.getFullYear()}年 · 日期與時間依手機`;
-   $("nextTerm").textContent="";
-   $("dailyTip").textContent="今日節氣資料尚未核實，暫不推定節氣名稱；可從下方二十四節氣手冊選擇節氣閱讀。";
-   $("dailyRoutine").textContent="依當地天氣、個人體力與作息安排飲食、休息及適量活動。";
-   $("dailyCaution").textContent="不依未核實的節氣日期作健康判斷；如有不適，請按實際症狀處理。";
-   $("dailyTags").innerHTML=`<span class="tag">節氣資料待核實</span><span class="tag">飲食有節</span><span class="tag">規律作息</span>`;
- }
+ let now=new Date(), current=getCurrentTerm(now);
+ $("todayText").innerHTML=`${now.getFullYear()}年<br>${now.getMonth()+1}月${now.getDate()}日`;
+ $("heroTerm").textContent=current.current.name;
+ $("heroSubtitle").textContent=current.current.subtitle;
+ $("heroDate").textContent=`${now.getFullYear()} · ${current.current.season}季節令`;
+ let diff=Math.max(0,Math.ceil((current.nextDate-now)/(24*60*60*1000)));
+ $("nextTerm").innerHTML=`下個節氣：${current.next.name}<br>约 ${diff} 天後`;
  $("dailyDate").textContent=`${now.getMonth()+1}月${now.getDate()}日`;
+ $("dailyTip").textContent=current.current.foodText+" "+current.current.routine;
+ $("dailyRoutine").textContent=current.current.routine;
+ $("dailyCaution").textContent=current.current.caution;
+ $("dailyTags").innerHTML=`<span class="tag">${current.current.season}季調養</span><span class="tag">飲食有節</span><span class="tag">规律作息</span>`;
+ selectedTerm=current.current.name;
  renderTerms();renderDetail();renderRegion();
 }
 function renderSeasonTabs(){
@@ -428,49 +428,21 @@ function selectTerm(name){selectedTerm=name;showPage("detail");renderDetail()}
 function setDetailTab(tab){detailTab=tab;renderDetail()}
 function getStore(key, fallback){try{return JSON.parse(localStorage.getItem(key))??fallback}catch(e){return fallback}}
 function setStore(key,val){localStorage.setItem(key,JSON.stringify(val))}
-const mealIdeas={
- 春:[
-  ["早餐｜山藥燕麥粥","燕麥、山藥丁與雞蛋搭配；想吃鹹口味可加青菜。"],
-  ["午餐｜豆腐菇菜飯","糙米或白米搭配豆腐、香菇及兩種蔬菜，少油烹調。"],
-  ["晚餐｜鮮魚蔬菜湯","魚片、豆腐、青菜煮湯，搭配適量主食。"],
-  ["點心｜當季水果","選擇洗淨的新鮮水果，依血糖及個人耐受調整份量。"]
- ],
- 夏:[
-  ["早餐｜小米粥配蛋","小米粥、蒸蛋或水煮蛋，避免只喝含糖飲料。"],
-  ["午餐｜冬瓜豆腐湯飯","冬瓜、豆腐與瘦肉或菇類，搭配飯及其他蔬菜。"],
-  ["晚餐｜番茄魚片麵","番茄、魚片與青菜煮麵，保持清爽但仍要吃足。"],
-  ["點心｜瓜果或無糖優格","可選西瓜、黃瓜等；乳品只適用於能耐受者，注意冷藏衛生。"]
- ],
- 秋:[
-  ["早餐｜梨丁銀耳燕麥","銀耳煮軟後加入燕麥與少量梨丁；不必額外加大量糖。"],
-  ["午餐｜蓮藕雞肉飯","蓮藕、雞肉搭配米飯與青菜，兼顧蛋白質及纖維。"],
-  ["晚餐｜百合山藥蔬菜湯","百合、山藥與蔬菜煮湯，可搭配豆腐或魚類補充蛋白質。"],
-  ["點心｜芝麻或當季水果","芝麻少量搭配主食或點心；堅果種子過敏者避免。"]
- ],
- 冬:[
-  ["早餐｜南瓜小米粥","南瓜、小米煮粥，可搭配雞蛋或無糖豆漿補充蛋白質。"],
-  ["午餐｜蘿蔔燉豆腐","白蘿蔔、豆腐與瘦肉或菇類燉煮，搭配飯和青菜。"],
-  ["晚餐｜山藥雞肉蔬菜湯","山藥、雞肉及多種蔬菜煮湯，避免只喝湯而不吃食材。"],
-  ["點心｜溫熱無糖飲品","可選溫水或無糖茶；不以酒精或高糖飲品取暖。"]
- ]
-};
-function renderMealIdeas(t){
- const ideas=mealIdeas[t.season]||mealIdeas.春;
- $("detailMealIdeas").innerHTML=ideas.map(x=>`<div class="meal-idea"><strong>${x[0]}</strong><span>${x[1]}</span></div>`).join("");
- $("detailFoodNote").textContent="搭配原則：每餐盡量有蔬菜、適量蛋白質與主食；食材可按當地當季供應替換。這些是一般飲食靈感，並非治療處方。糖尿病、腎臟病、食物過敏、吞嚥困難或需限水者，請依醫療／營養專業建議調整。";
-}
 function renderDetail(){
  const t=terms.find(x=>x.name===selectedTerm)||getCurrentTerm().current;
+ const seasonal=seasonalDetails[t.name]||[t.subtitle,t.caution];
  $("detailName").textContent=t.name;
  $("detailMeta").textContent=`${t.season}季 · ${t.month}月${t.day}日前後 · 節氣養生参考`;
+ $("detailCharacteristics").textContent=seasonal[0];
  $("detailTheory").textContent=t.theory;
- const c=classicalTexts[t.name]||["順時而養，因地制宜。","節氣文化提示","以下內容為文化與養生參考，非醫療診斷。"];$("detailClassic").textContent=c[0];$("detailClassicSource").textContent=c[1];$("detailClassicExplain").textContent=c[2];
- renderClassic(t);renderRegion();
+ $("detailHealthIssues").textContent=seasonal[1];
+ const c=classicalTexts[t.name]||["順時而養，因地制宜。","節氣文化提示","此句為現代概括，不是古籍原文。"];
+ $("classicalText").textContent=c[0];$("classicalSource").textContent="出处："+c[1];$("classicalMeaning").textContent=c[2];
+ renderRegion();
  $("detailFoodText").textContent=t.foodText;
  $("detailFoods").innerHTML=t.foods.map(f=>`<span class="food">${f}</span>`).join("");
- renderMealIdeas(t);
  $("detailAcupoint").textContent=t.acupoint;
- $("detailCaution").textContent=t.caution;
+ $("detailCaution").textContent="预防提醒："+t.caution;
  $("detailRoutine").textContent=t.routine;
  let favs=getStore("jieqi-favorites",[]);
  $("favoriteBtn").textContent=favs.includes(t.name)?"★ 已收藏":"☆ 收藏節氣";
@@ -527,7 +499,6 @@ function setFontSize(value){
 function resetFontSize(){setFontSize(16);toast('已恢復預設字體大小')}
 let savedFontSize=16;try{savedFontSize=Number(localStorage.getItem('jieqi-font-size'))||16}catch(e){}
 renderHeader();
-setInterval(updateLocalClock,1000);
 renderCalendar();
 setFontSize(savedFontSize);
 </script>
